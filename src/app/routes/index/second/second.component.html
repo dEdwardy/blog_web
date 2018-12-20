@@ -1,3 +1,28 @@
-<p>
-  second works!
-</p>
+<nz-list
+    [nzDataSource]="data"
+    [nzItemLayout]="'vertical'"
+    [nzRenderItem]="item"
+    [nzSize]="small"
+    [nzPagination]="pagination" >
+    <ng-template #item let-item>
+      <nz-list-item  [nzExtra]="extra" style="height:60px;" (click)="handleClick(item)" style="cursor: pointer;">
+        <nz-list-item-meta
+          [nzTitle]="nzTitle">
+          <ng-template #nzTitle>
+            <div style="text-align:center;margin-top: 12px"> 
+            <a href="#">{{item.title}}</a>
+            </div>
+          </ng-template>
+        </nz-list-item-meta>
+        <ng-template #extra >
+          <div style="text-align: center;width:560px">
+          <div style="text-align: center">标签:</div>
+          <div style="text-align: center">{{item.label}}</div>
+          </div>
+        </ng-template>
+      </nz-list-item>
+    </ng-template>
+    <ng-template #pagination>
+      <nz-pagination [nzPageIndex]="1" [nzTotal]="pageNumber" (nzPageIndexChange)="loadData($event)" nzShowQuickJumper></nz-pagination>
+    </ng-template>
+  </nz-list>

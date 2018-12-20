@@ -8,6 +8,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent, pathMatch: 'full' },
   {
     path: 'index',
+    // canActivate:[AuthGuard],    /*配置路由守卫*/
+    // canActivateChild: [AuthGuard],
     component: IndexComponent,
     children: [
       { path: 'add', loadChildren: './routes/index/first/first.module#FirstModule' },

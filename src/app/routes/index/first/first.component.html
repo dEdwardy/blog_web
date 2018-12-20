@@ -1,3 +1,44 @@
-<p>
-  first works!
-</p>
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm($event,validateForm.value)">
+  <nz-form-item nz-row>
+    <nz-form-label [nzSpan]="3" nzRequired>Title</nz-form-label>
+    <nz-form-control [nzSpan]="14" nzHasFeedback>
+      <input nz-input formControlName="title" nzPlaceHolder="title" >
+      <nz-form-explain *ngIf="validateForm.get('title').dirty && validateForm.get('title').errors || validateForm.get('title').pending ">
+        <ng-container *ngIf="validateForm.get('title').hasError('required')">
+          Please input your article title!
+        </ng-container>
+        <ng-container *ngIf="validateForm.get('title').hasError('duplicated')">
+          Your title is redundant!
+        </ng-container>
+        <ng-container *ngIf="validateForm.get('title').pending">
+          Validating...
+        </ng-container>
+      </nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="3" nzRequired>Label</nz-form-label>
+    <nz-form-control [nzSpan]="14" >
+        <nz-select formControlName="label" [nzMaxMultipleCount]="3" style="width: 100%" nzMode="multiple" nzPlaceHolder="Please select" [(ngModel)]="listOfSelectedValue">
+            <nz-option *ngFor="let option of listOfOption" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
+        </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+  
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="3" nzRequired>Cotent</nz-form-label>
+    <nz-form-control [nzSpan]="14">
+      <textarea formControlName="content" nz-input rows="2" placeholder="write any thing" style="min-height:400px;"></textarea>
+      <nz-form-explain *ngIf="validateForm.get('content').dirty&&validateForm.get('content').hasError('required')">Please write something here!</nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+
+    <nz-form-control [nzOffset]="3" [nzSpan]="14">
+      <button nz-button nzType="primary" [disabled]="!validateForm.valid">Submit</button>
+      <button nz-button (click)="resetForm($event)">Reset</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>
