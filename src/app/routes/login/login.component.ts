@@ -27,15 +27,20 @@ export class LoginComponent implements OnInit {
     }
     let [username,password,remember] = arr;
     if (username || password) {
-      this.loginService.login({ username, password }).subscribe(res => {
+      this.loginService.login({ username, password }).subscribe((res:UserRes) => {
         this.res = res;
         if (this.res.success === 1) {
-          this.message.success("登录成功！")
-          console.log(this.res)
-          localStorage.setItem('token',this.res.token)
-          this.routeTo('index');
+          if(res.data.authority===1){
+            this.routeTo('index');
+            this.message.success('欢迎进入管理界面!');
+            localStorage.setItem('token',this.res.data.token);
+            localStorage.setItem('authority',this.res.authority);
+          }else{
+            this.message.warning('非系统管理员!')
+            this.router.navigate(['/']);
+          }
         } else {
-          this.message.warning("登录失败！")
+          this.message.error("账号或密码错误!")
           console.log('登录失败!')
         }})
     } else {
@@ -63,4 +68,7 @@ export class LoginComponent implements OnInit {
       remember: [false ]
     });
   }
+}
+interface UserRes{
+  data:any
 }

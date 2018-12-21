@@ -8,8 +8,7 @@ import {
 } from '@angular/forms';
 import { Observable, Observer } from 'rxjs';
 import { NzMessageService } from 'ng-zorro-antd'
-import {  ArtilceService } from '../../../services/article/artilce.service'
-import { e } from '@angular/core/src/render3';
+import {  ArtilceService } from '../../../../services/article/artilce.service'
 
 @Component({
   selector: 'mpr-first',
@@ -31,7 +30,7 @@ export class FirstComponent implements OnInit {
     let {title,content,label}=value;
     let token = localStorage.getItem('token');
     console.log(token)
-    this.articleService.writeArtilce({title,content,label},{token})
+    this.articleService.writeArtilce({title,content,label})
         .subscribe(res => {
           this.data=res;
           if(this.data.success===1){
