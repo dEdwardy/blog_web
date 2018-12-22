@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'
 import { ArtilceService } from '../../../../services/article/artilce.service'
-import { NzModalService,NzMessageService } from 'ng-zorro-antd'
+import { NzModalService, NzMessageService } from 'ng-zorro-antd'
 
 @Component({
   selector: 'mpr-second',
@@ -11,9 +11,10 @@ import { NzModalService,NzMessageService } from 'ng-zorro-antd'
 export class SecondComponent implements OnInit {
   total: any;
   pageNumber: number;
-  
-  constructor(private articleService: ArtilceService, public router: Router, public modalService: NzModalService,public message:NzMessageService) {
-    
+  resData: any;
+  deleteInfo: any;
+  constructor(private articleService: ArtilceService, public router: Router, public modalService: NzModalService, public message: NzMessageService) {
+
   }
   ngOnInit(): void {
     this.loadPageNumber();
@@ -26,20 +27,19 @@ export class SecondComponent implements OnInit {
     this.modalService.confirm({
       nzTitle: 'Are you sure to delete this item?',
       nzContent: 'Are you sure to delete this item?',
-      nzOnOk: () => {
-        this.articleService.deleteArticle({params:{ id }})
-          .subscribe((res:DeleteResponse) => {
-            if(res.n===1){
-              /**
-               *@param n 受影响的条数(即删除的条数)
-               */
-              this.message.success('删除成功！')
-              this.loadPageNumber();
-              this.loadData();
-            }else{
-              this.message.error('删除失败！')
-            }
-          })
+      nzOnOk: async () => {
+        try {
+          this.deleteInfo = await this.articleService.deleteArticle({ params: { id } });
+          if (this.deleteInfo.n === 1) {               //n 受影响的条数(即删除的条数)
+            this.message.success('删除成功！')
+            this.loadPageNumber();
+            this.loadData();
+          } else {
+            this.message.error('删除失败！')
+          }
+        } catch (error) {
+          console.log(error)
+        }
       }
     });
   }
@@ -48,30 +48,23 @@ export class SecondComponent implements OnInit {
     this.router.navigate(['details'], { queryParams: { '_id': item._id } });
 
   }
-  loadPageNumber() {
-    this.articleService.getArticle( { count: 1 } )
-      .subscribe(res => {
-        this.total = res;
-        this.pageNumber = this.total.length;
-        //console.log(this.pageNumber)
+  async loadPageNumber() {
+    try {
+      this.total = await this.articleService.getArticle({ count: 1 })
+      this.pageNumber = this.total.length;
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  async loadData(page: number = 1) {
+    try {
+      this.resData = await this.articleService.getArticle({ skip: (page - 1) * 10, limit: 10 });
+      this.data = this.resData.data;
+      this.data.data.map(item => {
+        item.label = item.label.split(',').join(' & ');
       })
+    } catch (error) {
+      console.log(error)
+    }
   }
-  loadData(page: number = 1): void {
-    //console.log(page)
-    this.articleService.getArticle({ skip: (page - 1) * 10, limit: 10 })
-      .subscribe((res:GetResponse) => {
-        this.data = res.data;
-        this.data.map(item => {
-          item.label = item.label.split(',').join(' & ');
-          //console.log(item.label)
-        })
-      });
-  }
-}
-interface DeleteResponse{
-  n :number,
-  ok : number
-}
-interface GetResponse{
-  data: any
 }

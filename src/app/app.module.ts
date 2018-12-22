@@ -15,6 +15,7 @@ import { BasicAuthInterceptor } from './helpers/basicAuth.interceptor'
 import zh from '@angular/common/locales/zh';
 import { DetailsComponent } from './routes/admin/details/details.component';
 import { NotFoundComponent } from './routes/not-found/not-found.component';
+import { RegComponent } from './routes/reg/reg.component';
 
 registerLocaleData(zh);
 
@@ -25,7 +26,8 @@ registerLocaleData(zh);
     IndexComponent,
     TimePipe,
     DetailsComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    RegComponent
   ],
   imports: [
     BrowserModule,

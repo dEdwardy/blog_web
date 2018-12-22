@@ -1,28 +1,48 @@
 import { Injectable } from '@angular/core';
-import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router'
 import { NzMessageService } from 'ng-zorro-antd'
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class BasicAuthInterceptor implements HttpInterceptor {
-    constructor(private router:Router,public message:NzMessageService){}
+    constructor(private router: Router, public message: NzMessageService) { }
+
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        // add authorization header with basic auth credentials if available\
+        // add authorization header with basic auth credentials if available
         //console.log(request.url)
         //console.log(request.url.indexOf('login'))
-        let token:any = localStorage.getItem('token');
-        //console.log(token)
-        //console.log(token==true)
-        //console.log(request)
+        let token: any = localStorage.getItem('token');
+
         if (token) {
             request = request.clone({
-                setHeaders: { 
-                  token
+                setHeaders: {
+                    token
                 }
             });
         }
-        return next.handle(request);
-        
+        return next.handle(request).pipe(
+            catchError((err:HttpErrorResponse) => {
+                switch (err.status) {
+                    case 401:
+                        this.message.warning('当前身份已过期，请重新登录！');
+                        setTimeout(() => {
+                            this.router.navigate(['/login']);
+                        },2000)
+                        break;
+                    case 404:
+                        this.message.error('No such resource found ☹️'+err.status.toString());
+                        break;
+                    case 500:
+                        this.message.error('An unknown server error has occurred ☹️'+ err.status.toString());
+                        break;
+                    default:
+                        break;
+                }
+                return throwError(err);
+                })
+        )
+
     }
 }

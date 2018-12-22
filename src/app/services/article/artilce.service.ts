@@ -8,12 +8,12 @@ export class ArtilceService {
 
   constructor(private baseService:BaseServicesService) { }
   public writeArtilce(params,headers:any={}){
-    return this.baseService.query('post',baseUrl+'/articles/addArticle',params,headers);
+    return this.baseService.query('post',baseUrl+'/articles/addArticle',params,headers).toPromise();
   }
   public getArticle(params={}){
-    return this.baseService.query('get',baseUrl+'/articles/getArticles', params );
+    return this.baseService.query('get',baseUrl+'/articles/getArticles', params ).toPromise();;
   }
   public deleteArticle(params){
-    return this.baseService.query('delete',baseUrl+'/articles/deleteArticle',params)
+    return this.baseService.query('delete',baseUrl+'/articles/deleteArticle',params).toPromise();
   }
 }

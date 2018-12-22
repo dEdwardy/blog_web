@@ -27,22 +27,28 @@ export class LoginComponent implements OnInit {
     }
     let [username,password,remember] = arr;
     if (username || password) {
-      this.loginService.login({ username, password }).subscribe((res:UserRes) => {
-        this.res = res;
+      try {
+        this.res = await this.loginService.login({ username, password });
         if (this.res.success === 1) {
-          if(res.data.authority===1){
-            this.routeTo('index');
-            this.message.success('欢迎进入管理界面!');
-            localStorage.setItem('token',this.res.data.token);
-            localStorage.setItem('authority',this.res.authority);
-          }else{
-            this.message.warning('非系统管理员!')
-            this.router.navigate(['/']);
-          }
-        } else {
-          this.message.error("账号或密码错误!")
-          console.log('登录失败!')
-        }})
+              if(this.res.data.authority===1){
+                this.routeTo('index');
+                this.message.success('欢迎进入管理界面!');
+                console.log(this.res.data)
+                localStorage.setItem('token',this.res.token||'');
+                localStorage.setItem('authority',this.res.data.authority||0);
+              }else{
+                this.message.warning('非系统管理员!')
+                this.router.navigate(['/']);
+              }
+            } else {
+              this.message.error("账号或密码错误!")
+              console.log('登录失败!')
+            }
+      } catch (err) {
+        console.log(err)
+      }
+          
+
     } else {
       return false;
     }

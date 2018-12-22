@@ -23,8 +23,8 @@
         </label>
         <a class="login-form-forgot" class="login-form-forgot">Forgot password</a>
         <button nz-button class="login-form-button" [nzType]="'primary'" (click)="submitForm">Log in</button>
-        Or
-        <a href="">register now!</a>
+        <span style="color: white;padding-right: 10px">Or</span>  
+        <a [routerLink]="['/reg']" style="color:rgb(248, 0, 0)">register now!</a>
       </nz-form-control>
     </nz-form-item>
   </form>

@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router'
 import { LoginComponent } from './routes/login/login.component'
 import { IndexComponent } from './routes/admin/index/index.component'
 import { DetailsComponent } from './routes/admin/details/details.component'
+import { RegComponent } from './routes/reg/reg.component'
 import { NotFoundComponent } from './routes/not-found/not-found.component'
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -18,8 +19,9 @@ const routes: Routes = [
       { path: 'get', loadChildren: './routes/admin/index/second/second.module#SecondModule' }
     ]
   },
-  { path:'details',component: DetailsComponent },
-  { path:'notfound',component: NotFoundComponent },
+  { path:'details', component: DetailsComponent },
+  { path:'reg', component:RegComponent },
+  { path:'notfound', component: NotFoundComponent },
   { path: '**', redirectTo: 'index', pathMatch: 'full' }
 ];
 

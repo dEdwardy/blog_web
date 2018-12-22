@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { Observable, Observer } from 'rxjs';
 import { NzMessageService } from 'ng-zorro-antd'
-import {  ArtilceService } from '../../../../services/article/artilce.service'
+import { ArtilceService } from '../../../../services/article/artilce.service'
 
 @Component({
   selector: 'mpr-first',
@@ -19,39 +19,40 @@ export class FirstComponent implements OnInit {
   validateForm: FormGroup;
   listOfOption = [];
   listOfSelectedValue = [];
-  data:any;
-  submitForm = ($event, value) => {
+  data: any;
+  submitForm = async ($event, value) => {
     $event.preventDefault();
     for (const key in this.validateForm.controls) {
-      this.validateForm.controls[ key ].markAsDirty();
-      this.validateForm.controls[ key ].updateValueAndValidity();
+      this.validateForm.controls[key].markAsDirty();
+      this.validateForm.controls[key].updateValueAndValidity();
     }
     console.log(value);
-    let {title,content,label}=value;
+    let { title, content, label } = value;
     let token = localStorage.getItem('token');
     console.log(token)
-    this.articleService.writeArtilce({title,content,label})
-        .subscribe(res => {
-          this.data=res;
-          if(this.data.success===1){
-            this.message.success('OK！');
-            this.validateForm.reset();
-          }else{
-            this.message.warning('Oops,Something goes wrong!');
-          }
-          value=[];
-        })
+    try {
+      this.data = await this.articleService.writeArtilce({ title, content, label });
+      if (this.data.success === 1) {
+        this.message.success('OK！');
+        this.validateForm.reset();
+      } else {
+        this.message.warning('Oops,Something goes wrong!');
+      }
+      value = [];
+    } catch (err) {
+      console.log(err)
+    }
   };
   initSelect = () => {
     const children = []
-    const label=[
-      '微服务','区块链','超级账本','机器学习','深度学习','计算机视觉','自然语言处理','数据挖掘&分析','小程序','HTML/CSS','Javascript',
-      'Vue.js','React.js','Angular','Node.js','jQuery','WebApp','前端工具','Java','SpringBoot ','SSM','Python','爬虫',
-      'Django','Flask','Tornado','Go','PHP','WebApp','C','C++','Android ','iOS','React native','Ionic',
-      '数据结构与算法','中间件','接口测试','MySQL','Redis','MongoDB'
+    const label = [
+      '微服务', '区块链', '超级账本', '机器学习', '深度学习', '计算机视觉', '自然语言处理', '数据挖掘&分析', '小程序', 'HTML/CSS', 'Javascript',
+      'Vue.js', 'React.js', 'Angular', 'Node.js', 'jQuery', 'WebApp', '前端工具', 'Java', 'SpringBoot ', 'SSM', 'Python', '爬虫',
+      'Django', 'Flask', 'Tornado', 'Go', 'PHP', 'WebApp', 'C', 'C++', 'Android ', 'iOS', 'React native', 'Ionic',
+      '数据结构与算法', '中间件', '接口测试', 'MySQL', 'Redis', 'MongoDB'
     ];
-    for( let i=0;i<label.length;i++){
-      children.push({ label:label[i],value:label[i]})
+    for (let i = 0; i < label.length; i++) {
+      children.push({ label: label[i], value: label[i] })
     }
     this.listOfOption = children;
   }
@@ -59,8 +60,8 @@ export class FirstComponent implements OnInit {
     e.preventDefault();
     this.validateForm.reset();
     for (const key in this.validateForm.controls) {
-      this.validateForm.controls[ key ].markAsPristine();
-      this.validateForm.controls[ key ].updateValueAndValidity();
+      this.validateForm.controls[key].markAsPristine();
+      this.validateForm.controls[key].updateValueAndValidity();
     }
   }
 
@@ -78,11 +79,11 @@ export class FirstComponent implements OnInit {
   ngOnInit() {
     this.initSelect();
   }
-  constructor(private fb: FormBuilder,private articleService: ArtilceService,public message:NzMessageService) {
+  constructor(private fb: FormBuilder, private articleService: ArtilceService, public message: NzMessageService) {
     this.validateForm = this.fb.group({
-      title: [ '', [ Validators.required ], [ this.titleAsyncValidator ] ],
-      content : [ '', [ Validators.required ] ],
-      label :  [ '', [ Validators.required]]
+      title: ['', [Validators.required], [this.titleAsyncValidator]],
+      content: ['', [Validators.required]],
+      label: ['', [Validators.required]]
     });
   }
 }
