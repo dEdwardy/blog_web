@@ -1,0 +1,40 @@
+.all{
+    text-align: center;
+    header{
+        .header-top{
+            ::ng-deep [nz-carousel-content] {
+                height: 160px;
+                line-height: 160px;
+                background: #364d79;
+                color: #fff;
+                overflow: hidden;
+              }
+              h3 {
+                color: #fff;
+              }
+            
+        }
+        .header-bottom{
+            overflow: hidden;
+            font-size: 20px;
+            ul{
+                line-height: 64px;
+                margin-bottom: 0;
+                li{
+                    position: relative;
+                    display: inline-block;
+                    list-style: none;
+                    padding: 6px 14px;
+                    border-bottom:2px solid transparent;
+                    &:hover{
+                    border-bottom: 2px solid rgb(53, 7, 105);
+                    color:red;
+                    cursor: pointer;
+                    }
+            }
+            
+            }
+           
+        }
+    }
+}

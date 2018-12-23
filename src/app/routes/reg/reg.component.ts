@@ -5,9 +5,6 @@ import {
   FormGroup,
   Validators
 } from '@angular/forms';
-import { Subject } from 'rxjs';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/distinctUntilChanged';
 
 
 @Component({
@@ -26,7 +23,6 @@ export class RegComponent implements OnInit {
     
 
   }
-  public username:Subject<string> = new Subject<string>() 
   validateForm: FormGroup;
   submitForm(value): void {
     for (const i in this.validateForm.controls) {

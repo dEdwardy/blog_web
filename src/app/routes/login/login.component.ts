@@ -7,9 +7,7 @@ import {
 import { LoginService } from '../../services/login/login.service'
 import { NzMessageService } from 'ng-zorro-antd'
 import { Router } from '@angular/router'
-import { resolve } from 'url';
-import { reject } from 'q';
-import { LowerCasePipe, DatePipe } from '@angular/common';
+
 @Component({
   selector: 'mpr-login',
   templateUrl: './login.component.html',
@@ -31,7 +29,7 @@ export class LoginComponent implements OnInit {
         this.res = await this.loginService.login({ username, password });
         if (this.res.success === 1) {
               if(this.res.data.authority===1){
-                this.routeTo('index');
+                this.routeTo('admin/index');
                 this.message.success('欢迎进入管理界面!');
                 console.log(this.res.data)
                 localStorage.setItem('token',this.res.token||'');
