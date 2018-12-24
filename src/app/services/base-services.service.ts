@@ -10,14 +10,14 @@ export class BaseServicesService {
   public query(method:string,url:string,params:any={},header:any={}){
     switch(method){
       case 'get':{
-        return this.http.get(url, {params} )
+        return this.http.get(url, {params} ).toPromise();
       }
       case 'post':{
         let headers =new HttpHeaders({'Conent-Type':'application/x-www-form-urlencode;charset=utf-8'});
-        return this.http.post(url,params,{ headers });
+        return this.http.post(url,params,{ headers }).toPromise();;
       }
       case 'delete':{
-        return this.http.delete(url,params)
+        return this.http.delete(url,params).toPromise();
       }
       default:{
         

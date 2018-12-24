@@ -11,10 +11,10 @@ export class IndexComponent implements OnInit {
     console.log(type);
     switch(type){
       case 'add':
-        this.router.navigate(['index/add']);
+        this.router.navigate(['admin/index/add']);
         break;
       case 'get':
-        this.router.navigate(['index/get']);
+        this.router.navigate(['admin/index/get']);
         break;
       default:
         break;

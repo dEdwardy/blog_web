@@ -15,11 +15,37 @@
       </ul>
     </div>
   </header>
-  <div nz-row style="background:#eee;padding-top: 20px">
-    <div nz-col nzSpan="10" nzOffset="4" style="min-height: 400px;padding: 10px 10px 20px 10px;border: 2px solid">
-      <span>Main</span>
+  <div nz-row style="padding-top: 20px">
+    <div nz-col [nzMd]="{ span:10,offset:4 }" style="padding: 10px 10px 20px 10px;border: 2px solid">
+      <div>Main Content</div>
+      <nz-list [nzDataSource]="data" [nzItemLayout]="'vertical'" [nzRenderItem]="item" [nzSize]="small" [nzPagination]="pagination">
+        <ng-template #item let-item>
+          <!-- <nz-list-item [nzExtra]="extra" style="height:60px;" (click)="handleClick(item)" style="cursor: pointer;height: 120px;border-radius: 4px ">
+            <nz-list-item-meta [nzTitle]="nzTitle">
+              <ng-template #nzTitle>
+                <div style="text-align:left;margin-top: 12px">
+                  <a href="#">{{item.title}}</a>
+                </div>
+              </ng-template>
+            </nz-list-item-meta>
+            <ng-template #extra>
+              <div style="margin-right:100px">
+                <div style="text-align:right">标签:</div>
+                <div style="text-align: left">{{item.label}}</div>
+              </div>
+            </ng-template>
+          </nz-list-item> -->
+          <div class="item">
+            
+          </div>
+        </ng-template>
+        <ng-template #pagination>
+          <nz-pagination [nzPageIndex]="1" [nzTotal]="pageNumber" (nzPageIndexChange)="loadData($event)"
+            nzShowQuickJumper></nz-pagination>
+        </ng-template>
+      </nz-list>
     </div>
-    <div nz-col nzSpan="5" nzOffset="1" style="padding: 10px 20px 10px 10px;border: 2px solid">
+    <div nz-col [nzMd]="{ span:5,offset:1 }" style="padding: 10px 20px 10px 10px;border: 2px solid">
       <nz-tabset>
         <nz-tab [nzTitle]="loginTitle">
           <ng-template #loginTitle>
@@ -29,17 +55,18 @@
             <form nz-form [formGroup]="validateLoginForm" class="login-form" (ngSubmit)="submitLoginForm(validateLoginForm.value)">
               <nz-form-item>
                 <nz-form-control>
-                  <nz-input-group [nzPrefix]="prefixUser">
-                    <input type="text" nz-input formControlName="username" placeholder="Username">
+                  <nz-input-group [nzPrefix]="prefixEmail">
+                    <input type="text" nz-input formControlName="email" placeholder="Email">
                   </nz-input-group>
-                  <nz-form-explain *ngIf="validateLoginForm.get('username').dirty && validateLoginForm.get('username').errors">Please
-                    input your username!</nz-form-explain>
+                  <nz-form-explain *ngIf="validateLoginForm.get('email').dirty && validateLoginForm.get('email').errors">
+                    Please input your email!
+                  </nz-form-explain>
                 </nz-form-control>
               </nz-form-item>
               <nz-form-item>
                 <nz-form-control>
                   <nz-input-group [nzPrefix]="prefixLock">
-                    <input type="password" nz-input formControlName="password" placeholder="Password">
+                    <input type="password" nz-input formControlName="password" placeholder="Password" autocomplete>
                   </nz-input-group>
                   <nz-form-explain *ngIf="validateLoginForm.get('password').dirty && validateLoginForm.get('password').errors">Please
                     input your Password!</nz-form-explain>
@@ -51,7 +78,7 @@
                     <span>Remember me</span>
                   </label>
                   <a class="login-form-forgot" class="login-form-forgot">Forgot password</a>
-                  <button nz-button class="login-form-button" [nzType]="'primary'" (click)="submitForm" style="float: right">Log
+                  <button nz-button class="login-form-button" [nzType]="'primary'" style="float: right">Log
                     in</button>
                 </nz-form-control>
               </nz-form-item>
@@ -66,6 +93,19 @@
           </ng-template>
           <div class="reg">
             <form nz-form [formGroup]="validateRegForm" (ngSubmit)="submitRegForm(validateRegForm.value)">
+              <nz-form-item>
+                <nz-form-control>
+                  <nz-input-group [nzPrefix]="prefixEmail">
+                    <input nz-input formControlName="email" placeholder="Email" (blur)="handleEmailChange($event.target.value)">
+                  </nz-input-group>
+                  <nz-form-explain *ngIf="validateRegForm.get('email').dirty && validateRegForm.get('email').errors">
+                    The input is not valid E-mail!
+                  </nz-form-explain>
+                  <nz-form-extra *ngIf="this.status==1">
+                    <div style="color:red">当前邮箱已注册!</div>
+                  </nz-form-extra>
+                </nz-form-control>
+              </nz-form-item>
               <nz-form-item>
                 <nz-form-control>
                   <nz-input-group [nzPrefix]="prefixUser">
@@ -86,7 +126,7 @@
               </nz-form-item>
               <nz-form-item>
                 <nz-form-control>
-                  <nz-input-group [nzPrefix]="prefixLockAgain">
+                  <nz-input-group [nzPrefix]="prefixLock">
                     <input nz-input type="password" formControlName="checkPassword" placeholder="Check Password">
                   </nz-input-group>
                   <nz-form-explain *ngIf="validateRegForm.get('checkPassword').dirty && validateRegForm.get('checkPassword').errors">
@@ -99,15 +139,6 @@
                   </nz-form-explain>
                 </nz-form-control>
               </nz-form-item>
-              <nz-form-item>
-                <nz-form-control>
-                  <nz-input-group [nzPrefix]="prefixEmail">
-                    <input nz-input formControlName="email" placeholder="Email">
-                  </nz-input-group>
-                  <nz-form-explain *ngIf="validateRegForm.get('email').dirty && validateRegForm.get('email').errors">The
-                    input is not valid E-mail!</nz-form-explain>
-                </nz-form-control>
-              </nz-form-item>
               <nz-form-item nz-row style="margin-bottom:8px;">
                 <nz-form-control [nzSpan]="14" [nzOffset]="10" style="text-align: center">
                   <button nz-button nzType="primary">Register</button>
@@ -116,9 +147,7 @@
             </form>
             <ng-template #prefixUser><i nz-icon type="user"></i></ng-template>
             <ng-template #prefixLock><i nz-icon type="lock"></i></ng-template>
-            <ng-template #prefixLockAgain><i nz-icon type="lock"></i></ng-template>
             <ng-template #prefixEmail><i nz-icon type="mail"></i></ng-template>
-            <ng-template #loading><i nz-icon type="loading"></i></ng-template>
           </div>
         </nz-tab>
       </nz-tabset>

@@ -23,10 +23,10 @@ export class LoginComponent implements OnInit {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
     }
-    let [username,password,remember] = arr;
-    if (username || password) {
+    let [email,password,remember] = arr;
+    if (email || password) {
       try {
-        this.res = await this.loginService.login({ username, password });
+        this.res = await this.loginService.login({ email, password });
         if (this.res.success === 1) {
               if(this.res.data.authority===1){
                 this.routeTo('admin/index');
@@ -53,8 +53,8 @@ export class LoginComponent implements OnInit {
   }
   public routeTo(path) {
     switch (path) {
-      case 'index':
-        this.router.navigate(['index']);
+      case 'admin/index':
+        this.router.navigate(['admin/index']);
         break;
       default:
         break;
@@ -67,7 +67,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      username: [null, [Validators.required]],
+      email: [null, [Validators.required]],
       password: [null, [Validators.required]],
       remember: [false ]
     });

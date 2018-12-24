@@ -13,6 +13,7 @@ export class SecondComponent implements OnInit {
   pageNumber: number;
   resData: any;
   deleteInfo: any;
+  data: any;
   constructor(private articleService: ArtilceService, public router: Router, public modalService: NzModalService, public message: NzMessageService) {
 
   }
@@ -20,7 +21,6 @@ export class SecondComponent implements OnInit {
     this.loadPageNumber();
     this.loadData();
   }
-  data: any;
 
   handleClickDelete(e, id) {
     e.stopPropagation();

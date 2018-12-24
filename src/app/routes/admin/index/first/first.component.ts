@@ -7,7 +7,7 @@ import {
   Validators
 } from '@angular/forms';
 import { Observable, Observer } from 'rxjs';
-import { NzMessageService } from 'ng-zorro-antd'
+import { NzMessageService, UploadFile } from 'ng-zorro-antd'
 import { ArtilceService } from '../../../../services/article/artilce.service'
 
 @Component({
@@ -16,10 +16,20 @@ import { ArtilceService } from '../../../../services/article/artilce.service'
   styleUrls: ['./first.component.scss']
 })
 export class FirstComponent implements OnInit {
+  fileList = [
+  ];
+  previewImage = '';
+  previewVisible = false;
+
+
   validateForm: FormGroup;
   listOfOption = [];
   listOfSelectedValue = [];
   data: any;
+  handlePreview = (file: UploadFile) => {
+    this.previewImage = file.url || file.thumbUrl;
+    this.previewVisible = true;
+  }
   submitForm = async ($event, value) => {
     $event.preventDefault();
     for (const key in this.validateForm.controls) {
