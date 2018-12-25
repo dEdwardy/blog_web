@@ -40,6 +40,7 @@ export class IndexComponent implements OnInit {
   res: any;
   //验证邮箱是否唯一
   async handleEmailChange(email) {
+    //this.status=null;
     let reg = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$");
     if (!reg.test(email)) return;
     try {
@@ -178,7 +179,8 @@ export class IndexComponent implements OnInit {
     try {
       this.resData = await this.articleService.getArticle({ skip: (page - 1) * 10, limit: 10 });
       this.data = this.resData.data;
-      this.data.data.map(item => {
+      console.log(this.data)
+      this.data.map(item => {
         item.label = item.label.split(',').join(' & ');
       })
     } catch (error) {

@@ -1,61 +1,63 @@
-.all{
-    text-align: center;
-    header{
-        .header-top{
-            ::ng-deep [nz-carousel-content] {
-                height: 160px;
-                line-height: 160px;
-                background: #364d79;
-                color: #fff;
-                overflow: hidden;
-              }
-              h3 {
-                color: #fff;
-              }
-            
-        }
-        .header-bottom{
-            overflow: hidden;
-            font-size: 20px;
-            ul{
-                line-height: 64px;
-                margin-bottom: 0;
-                li{
-                    position: relative;
-                    display: inline-block;
-                    list-style: none;
-                    padding: 6px 14px;
-                    border-bottom:2px solid transparent;
-                    &:hover{
-                    border-bottom: 2px solid rgb(53, 7, 105);
-                    color:red;
-                    cursor: pointer;
-                    }
-            }
-            
-            }
-           
-        }
+.all {
+  text-align: center;
+  header {
+    .header-top {
+      ::ng-deep [nz-carousel-content] {
+        height: 160px;
+        line-height: 160px;
+        background: #364d79;
+        color: #fff;
+        overflow: hidden;
+      }
+      h3 {
+        color: #fff;
+      }
     }
+    .header-bottom {
+      overflow: hidden;
+      font-size: 20px;
+      ul {
+        line-height: 64px;
+        margin-bottom: 0;
+        li {
+          position: relative;
+          display: inline-block;
+          list-style: none;
+          padding: 6px 14px;
+          border-bottom: 2px solid transparent;
+          &:hover {
+            border-bottom: 2px solid rgb(53, 7, 105);
+            color: red;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+  .main{
+      background-color: #eee;
+      .item{
+        background-color: #fff;
+      }
+      .rightContent{
+          background-color:#fff;
+      }
+  }
 }
-::ng-deep nz-list-item{
-    padding:0 !important;
-    overflow: hidden;
-  }
-  ::ng-deep nz-list-item:hover,[nz-list-item]:visited{
-  background-color:#eee;
-  }
-  button{
-    margin:15px;
-    bottom:42px;
-  }
-  div,a{
-    text-overflow:ellipsis; 
-    white-space:nowrap; 
-    overflow:hidden; 
-  }
-  ::ng-deep nz-pagination{
-    position:fixed!important;
-    right: 100px;
-    bottom:88px;
-  }
+::ng-deep nz-list-item {
+  padding: 0 !important;
+  overflow: hidden;
+}
+::ng-deep nz-list-item:hover,
+[nz-list-item]:visited {
+  background-color: #eee;
+}
+button {
+  margin: 15px;
+  bottom: 42px;
+}
+::ng-deep nz-pagination {
+  position: fixed !important;
+  right: 150px;
+  bottom: 44px;
+}

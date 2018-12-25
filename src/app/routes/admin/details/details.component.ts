@@ -17,34 +17,23 @@ import { NzMessageService } from 'ng-zorro-antd'
 })
 export class DetailsComponent implements OnInit {
   data: any;
-  title: string;
-  label: string;
-  content: string;
-  comment: any;
+  item :any={ };
 
   constructor(private route: ActivatedRoute, private articleService: ArtilceService) {
 
   }
+
   id: any;
   async loadDetail() {
     //console.log(this.route.snapshot.queryParamMap.get('_id'));
     this.id = this.route.snapshot.queryParamMap.get('_id');
     try {
-      this.data = this.articleService.getArticle({ _id: this.id })
-      this.title = this.data[0].title;
-      this.label = this.data[0].label;
-      this.content = this.data[0].content;
+      this.data = await this.articleService.getArticle({ _id: this.id })
+      console.log(this.data.data[0])
+      this.item = this.data.data[0];
     } catch (error) {
       console.log(error)
     }
-    // .subscribe((res:GetResponse) =>{
-    //   console.log(res.data[0]);
-    //   
-    //   console.log(this.title)
-    //   console.log(this.label)
-    //   console.log(this.content)
-    //   console.log(this.comment)
-    // });
   }
   ngOnInit() {
     this.loadDetail()

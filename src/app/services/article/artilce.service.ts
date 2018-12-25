@@ -11,7 +11,7 @@ export class ArtilceService {
     return this.baseService.query('post',baseUrl+'/articles/addArticle',params,headers).then(res =>res);;
   }
   public getArticle(params={}){
-    return this.baseService.query('get',baseUrl+'/articles/getArticles', params ).then(res =>res);;
+    return this.baseService.query('get',baseUrl+'/articles/getArticles', params).then(res => res);;
   }
   public deleteArticle(params){
     return this.baseService.query('delete',baseUrl+'/articles/deleteArticle',params).then(res =>res);
