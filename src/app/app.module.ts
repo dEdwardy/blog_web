@@ -18,6 +18,8 @@ import { NotFoundComponent } from './routes/not-found/not-found.component';
 import { RegComponent } from './routes/reg/reg.component';
 import { IndexComponent } from './routes/index/index.component';
 import { StrLengthPipe } from './common/pipe/str-length.pipe';
+import { QuillModule } from 'ngx-quill'
+import { Quill } from 'quill'
 
 registerLocaleData(zh);
 
@@ -40,7 +42,8 @@ registerLocaleData(zh);
     ReactiveFormsModule,
     HttpClientModule,
     NgZorroAntdModule,
-    AppRoutingModule
+    AppRoutingModule,
+    QuillModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: zh_CN },

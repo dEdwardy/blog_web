@@ -8,9 +8,9 @@ import { RegComponent } from './routes/reg/reg.component'
 import { NotFoundComponent } from './routes/not-found/not-found.component'
 import { IndexComponent } from './routes/index/index.component'
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent, pathMatch: 'full' },
-  { path: 'index', component:IndexComponent },
+  { path: '', redirectTo: 'index', pathMatch: 'full' },
+  { path: 'index', component:IndexComponent, pathMatch: 'full'  },
+  { path: 'login', component: LoginComponent},
   {
     path: 'admin/index',
     // canActivate:[AuthGuard],    /*配置路由守卫*/
