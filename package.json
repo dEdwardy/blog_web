@@ -4,11 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-<<<<<<< HEAD
-    "start-lhm":"ng serve --port 4211 --proxy-config proxy.config.json",
-=======
     "start-lhm": "ng serve --port 4210 --proxy-config proxy.config.json",
->>>>>>> 6809c1fab64a9c9b0284d47634554ddca0896dd5
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",  
