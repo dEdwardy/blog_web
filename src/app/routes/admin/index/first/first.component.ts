@@ -20,7 +20,20 @@ export class FirstComponent implements OnInit {
   ];
   previewImage = '';
   previewVisible = false;
-
+  text:any;
+  config:any ={
+    toolbar: [
+      //['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+      ['blockquote', 'code-block'],
+  
+      [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+  
+      ['clean'],                                         // remove formatting button
+  
+      ['link', 'image', 'video']                         // link and image, video
+    ]
+  };
 
   validateForm: FormGroup;
   listOfOption = [];

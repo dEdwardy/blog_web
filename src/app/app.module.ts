@@ -17,10 +17,15 @@ import { NotFoundComponent } from './routes/not-found/not-found.component';
 import { RegComponent } from './routes/reg/reg.component';
 import { IndexComponent } from './routes/index/index.component';
 import { StrLengthPipe } from './common/pipe/str-length.pipe';
+<<<<<<< HEAD
 import { PathPipe } from './common/pipe/path.pipe';
 import { CanAuthProvide } from './services/guard/can-auth.provide'
 // import { DetailComponent } from './routes/index/detail/detail.component';
 // import { ArticleComponent } from './routes/index/article/article.component';
+=======
+import { QuillModule } from 'ngx-quill'
+import { Quill } from 'quill'
+>>>>>>> 6809c1fab64a9c9b0284d47634554ddca0896dd5
 
 registerLocaleData(zh);
 
@@ -45,7 +50,8 @@ registerLocaleData(zh);
     ReactiveFormsModule,
     HttpClientModule,
     NgZorroAntdModule,
-    AppRoutingModule
+    AppRoutingModule,
+    QuillModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: zh_CN },

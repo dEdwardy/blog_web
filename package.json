@@ -4,7 +4,11 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+<<<<<<< HEAD
     "start-lhm":"ng serve --port 4211 --proxy-config proxy.config.json",
+=======
+    "start-lhm": "ng serve --port 4210 --proxy-config proxy.config.json",
+>>>>>>> 6809c1fab64a9c9b0284d47634554ddca0896dd5
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",  
@@ -21,8 +25,11 @@
     "@angular/platform-browser": "^6.0.3",
     "@angular/platform-browser-dynamic": "^6.0.3",
     "@angular/router": "^6.0.3",
+    "@types/quill": "^2.0.1",
     "core-js": "^2.5.4",
     "ng-zorro-antd": "^7.0.0-rc.0",
+    "ngx-quill": "^4.4.5",
+    "quill": "^1.3.6",
     "rxjs": "^6.0.0",
     "zone.js": "^0.8.26"
   },

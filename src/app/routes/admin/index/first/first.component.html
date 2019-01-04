@@ -26,7 +26,7 @@
     </nz-form-control>
   </nz-form-item>
     <div class="clearfix">
-        <nz-upload
+        <!-- <nz-upload
           nzAction="https://jsonplaceholder.typicode.com/posts/"
           nzListType="picture-card"
           [(nzFileList)]="fileList"
@@ -34,7 +34,7 @@
           [nzPreview]="handlePreview">
             <i nz-icon type="plus"></i>
             <div class="ant-upload-text">Upload</div>
-        </nz-upload>
+        </nz-upload> -->
         <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null" (nzOnCancel)="previewVisible=false">
           <ng-template #modalContent>
             <img [src]="previewImage" [ngStyle]="{ 'width': '100%' }" />
@@ -56,3 +56,6 @@
     </nz-form-control>
   </nz-form-item>
 </form>
+<div>
+  <quill-editor [modules]="config" style="height: 600px" [(ngModel)]="text"></quill-editor>
+</div>
