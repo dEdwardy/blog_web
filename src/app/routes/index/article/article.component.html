@@ -1,0 +1,54 @@
+<nz-list
+        [nzDataSource]="data"
+        [nzItemLayout]="'vertical'"
+        [nzRenderItem]="item"
+        [nzSize]="small"
+        [nzPagination]="pagination"
+      >
+        <ng-template #item let-item>
+          <div
+            row
+            style="margin:10px 0;clear: both;overflow: hidden;padding: 1% 0"
+            class="item"
+          >
+            <div nz-col [nzSpan]="7" style="padding:2%">
+              <img
+                alt="logo"
+                src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+                style="padding:4% 0;width: 100%;"
+              />
+            </div>
+            <div nz-col [nzSpan]="14" [nzPush]="1" style="text-align:left">
+              <div nz-row style="margin:22px 4px 2px 4px;font-size: 16px ">
+                <b>{{ item.title }}</b>
+              </div>
+              <div nz-row class="content" style="margin:10px 4px">
+                {{  limitLength(item.content,50) }}
+              </div>
+              <div
+                nz-row
+                style="padding:6px 4px;border-top:1px dashed gray;color: rgb(170, 169, 169);margin-top:8px"
+              >
+                {{ item.create_date | date: "yyyy-MM-dd HH:mm:ss" }}
+              </div>
+              <div
+                nz-row
+                (click)="handleClick(item)"
+                style="float:right;cursor: pointer;padding: 4px 2px"
+              >
+                阅读全文&gt;&gt;
+              </div>
+            </div>
+          </div>
+
+          <div class="item"></div>
+        </ng-template>
+        <ng-template #pagination>
+          <nz-pagination
+            [nzPageIndex]="1"
+            [nzTotal]="pageNumber"
+            (nzPageIndexChange)="loadData($event)"
+            nzShowQuickJumper
+          ></nz-pagination>
+        </ng-template>
+      </nz-list>

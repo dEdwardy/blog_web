@@ -73,6 +73,3 @@ export class LoginComponent implements OnInit {
     });
   }
 }
-interface UserRes{
-  data:any
-}

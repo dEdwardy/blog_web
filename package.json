@@ -4,9 +4,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start-lhm":"ng serve --port 4211 --proxy-config proxy.config.json",
     "build": "ng build",
     "test": "ng test",
-    "lint": "ng lint",
+    "lint": "ng lint",  
     "e2e": "ng e2e"
   },
   "private": true,

@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./reg.component.scss']
 })
 export class RegComponent implements OnInit {
+  now :any=Date.now();
   status=true;
   ngOnInit(){}
   public changeStatus(){

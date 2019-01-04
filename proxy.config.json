@@ -1,0 +1,7 @@
+{
+  "/api": {
+    "target": "http://172.16.4.78:8088",
+    "secure": false,
+    "changeOrigin": true
+  }
+}

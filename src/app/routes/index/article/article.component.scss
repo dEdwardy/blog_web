@@ -1,0 +1,23 @@
+.item{
+  background-color: #fff;
+  img{
+    margin:0 12px;
+  }
+}
+::ng-deep nz-list-item {
+  padding: 0 !important;
+  overflow: hidden;
+}
+::ng-deep nz-list-item:hover,
+[nz-list-item]:visited {
+  background-color: #eee;
+}
+button {
+  margin: 15px;
+  bottom: 42px;
+}
+::ng-deep nz-pagination {
+  position: fixed !important;
+  right: 150px;
+  bottom: 44px;
+}

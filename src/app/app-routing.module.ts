@@ -7,18 +7,25 @@ import { DetailsComponent } from './routes/admin/details/details.component'
 import { RegComponent } from './routes/reg/reg.component'
 import { NotFoundComponent } from './routes/not-found/not-found.component'
 import { IndexComponent } from './routes/index/index.component'
+import { CanAuthProvide } from './services/guard/can-auth.provide'
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent, pathMatch: 'full' },
-  { path: 'index', component:IndexComponent },
+  { path: '', redirectTo: 'index', pathMatch: 'full' },
+  { path: 'index',
+    component:IndexComponent, 
+    pathMatch: 'full',
+    children:[
+      {path: '',loadChildren: './routes/index/article/article.module#ArticleModule'},
+      // {path: 'detail',loadChildren: './routes/index/detail/detail.module#DetailModule'}
+    ]  
+  },
+  { path: 'login', component: LoginComponent},
   {
     path: 'admin/index',
-    // canActivate:[AuthGuard],    /*配置路由守卫*/
-    // canActivateChild: [AuthGuard],
+    canActivate:[CanAuthProvide],    /*配置路由守卫*/
     component: AdminIndex,
     children: [
-      { path: 'add', loadChildren: './routes/admin/index/first/first.module#FirstModule' },
-      { path: 'get', loadChildren: './routes/admin/index/second/second.module#SecondModule' }
+      { path: 'add', loadChildren: './routes/admin/index/first/first.module#FirstModule',canActivateChild:[CanAuthProvide] },
+      { path: 'get', loadChildren: './routes/admin/index/second/second.module#SecondModule',canActivateChild:[CanAuthProvide] }
     ]
   },
   { path:'details', component: DetailsComponent },

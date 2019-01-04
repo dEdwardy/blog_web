@@ -18,11 +18,12 @@
   <div nz-row style="padding-top: 10px" class="main">
     <div
       nz-col
+      [nzSm]="{ span: 14, offset: 2 }"
       [nzMd]="{ span: 10, offset: 4 }"
-      [nzLg]="{ span: 10, offset: 4}"
+      [nzLg]="{ span: 11, offset: 4 }"
       style="padding: 10px 10px 20px 10px;"
-    >
-      <nz-list
+    > 
+      <!-- <nz-list
         [nzDataSource]="data"
         [nzItemLayout]="'vertical'"
         [nzRenderItem]="item"
@@ -35,13 +36,11 @@
             style="margin:10px 0;clear: both;overflow: hidden;padding: 1% 0"
             class="item"
           >
-            <div nz-col [nzSpan]="7" style="padding:2% 0">
+            <div nz-col [nzSpan]="7" style="padding:2%">
               <img
-                width="160"
-                height="140"
                 alt="logo"
                 src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
-                style="padding:4% 0"
+                style="padding:4% 0;width: 100%;"
               />
             </div>
             <div nz-col [nzSpan]="14" [nzPush]="1" style="text-align:left">
@@ -53,7 +52,7 @@
               </div>
               <div
                 nz-row
-                style="padding:6px 4px;border-top:1px dashed gray;color: rgb(170, 169, 169)"
+                style="padding:6px 4px;border-top:1px dashed gray;color: rgb(170, 169, 169);margin-top:8px"
               >
                 {{ item.create_date | date: "yyyy-MM-dd HH:mm:ss" }}
               </div>
@@ -77,16 +76,18 @@
             nzShowQuickJumper
           ></nz-pagination>
         </ng-template>
-      </nz-list>
+      </nz-list> -->
+      <router-outlet></router-outlet>
     </div>
     <div
       nz-col
+      [nzSm]="{ span: 6 }"
       [nzMd]="{ span: 5, offset: 1 }"
-      [nzLg]="{ span: 4, offset: 2}"
+      [nzLg]="{ span: 4, offset: 1 }"
       style="padding: 10px 20px 10px 10px;margin-top:20px"
       class="rightContent"
     >
-      <nz-tabset>
+      <nz-tabset *ngIf="!isLogin()">
         <nz-tab [nzTitle]="loginTitle">
           <ng-template #loginTitle>
             <i nz-icon [type]="login.icon"></i>{{ login.name }}
@@ -102,7 +103,7 @@
                 <nz-form-control>
                   <nz-input-group [nzPrefix]="prefixEmail">
                     <input
-                      type="text"
+                      type="email"
                       nz-input
                       formControlName="email"
                       placeholder="Email"
@@ -276,12 +277,12 @@
                 </nz-form-control>
               </nz-form-item>
               <button
-                    nz-button
-                    nzType="primary"
-                    style="float:right;margin-bottom:-30px;margin-top: 40px;"
-                  >
-                    Register
-                  </button>
+                nz-button
+                nzType="primary"
+                style="float:right;margin-bottom:-30px;margin-top: 40px;"
+              >
+                Register
+              </button>
             </form>
             <ng-template #prefixUser><i nz-icon type="user"></i></ng-template>
             <ng-template #prefixLock><i nz-icon type="lock"></i></ng-template>
@@ -289,6 +290,15 @@
           </div>
         </nz-tab>
       </nz-tabset>
+      <div *ngIf="isLogin()">
+        <img src="{{ avatar | path }}" alt="avatar" width="160" style="border-radius: 50%"/>
+        <div style="padding: 12px 0"><span>欢迎：</span>{{ this.username }}</div>
+        <div style="padding: 4px 0">光临我的博客~</div>
+        <button nz-button nzType="primary" *ngIf="authority===1" (click)="routeTo('admin/index')">进入管理界面</button>
+        <button nz-button nzType="danger" (click)="loginOut()" style="bottom:4px;padding: 0 10px">
+          <i nz-icon type="logout" theme="outline"></i>Login Out
+        </button>
+      </div>
     </div>
   </div>
 </div>
