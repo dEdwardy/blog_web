@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ArtilceService }  from '../../../services/article/artilce.service'
+import { Router } from '@angular/router'
 @Component({
   selector: 'mpr-article',
   templateUrl: './article.component.html',
@@ -11,7 +12,12 @@ export class ArticleComponent implements OnInit {
   resData:any;
   total: any;
   pageNumber: number;
-  constructor(public articleService:ArtilceService) { }
+  constructor(public articleService:ArtilceService, public router:Router) { }
+  handleClick(item) {
+    //console.log(item)
+    this.router.navigate(['./details'], { queryParams: { '_id': item._id } });
+
+  }
   async loadData(page: number = 1) {
     try {
       this.resData = await this.articleService.getArticle({

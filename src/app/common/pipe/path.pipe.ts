@@ -7,7 +7,7 @@ export class PathPipe implements PipeTransform {
 
   transform(value: any, args?: any): any {
     // return pathHead+value;
-    return value
+    return pathHead+value
   }
 
 }

@@ -295,7 +295,7 @@
         <div style="padding: 12px 0"><span>欢迎：</span>{{ this.username }}</div>
         <div style="padding: 4px 0">光临我的博客~</div>
         <button nz-button nzType="primary" *ngIf="authority===1" (click)="routeTo('admin/index')">进入管理界面</button>
-        <button nz-button nzType="danger" (click)="loginOut()" style="bottom:4px;padding: 0 10px">
+        <button nz-button nzType="danger" (click)="loginOut()">
           <i nz-icon type="logout" theme="outline"></i>Login Out
         </button>
       </div>

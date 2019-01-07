@@ -10,7 +10,6 @@ import { IndexComponent } from './routes/index/index.component'
 import { CanAuthProvide } from './services/guard/can-auth.provide'
 const routes: Routes = [
   { path: '', redirectTo: 'index', pathMatch: 'full' },
-<<<<<<< HEAD
   { path: 'index',
     component:IndexComponent, 
     pathMatch: 'full',
@@ -19,9 +18,6 @@ const routes: Routes = [
       // {path: 'detail',loadChildren: './routes/index/detail/detail.module#DetailModule'}
     ]  
   },
-=======
-  { path: 'index', component:IndexComponent, pathMatch: 'full'  },
->>>>>>> 6809c1fab64a9c9b0284d47634554ddca0896dd5
   { path: 'login', component: LoginComponent},
   {
     path: 'admin/index',
