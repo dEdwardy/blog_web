@@ -24,8 +24,8 @@ const routes: Routes = [
     canActivate:[CanAuthProvide],    /*配置路由守卫*/
     component: AdminIndex,
     children: [
-      { path: 'add', loadChildren: './routes/admin/index/first/first.module#FirstModule',canActivateChild:[CanAuthProvide] },
-      { path: 'get', loadChildren: './routes/admin/index/second/second.module#SecondModule',canActivateChild:[CanAuthProvide] }
+      { path: 'add', loadChildren: './routes/admin/index/first/first.module#FirstModule' },
+      { path: 'get', loadChildren: './routes/admin/index/second/second.module#SecondModule'}
     ]
   },
   { path:'details', component: DetailsComponent },

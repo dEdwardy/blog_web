@@ -43,9 +43,9 @@
       </div>
   <nz-form-item class="clearfix">
     <nz-form-label [nzSpan]="3" nzRequired>Cotent</nz-form-label>
-    <nz-form-control [nzSpan]="14">
-      <textarea formControlName="content" nz-input rows="2" placeholder="write any thing" style="min-height:400px;"></textarea>
-      <nz-form-explain *ngIf="validateForm.get('content').dirty&&validateForm.get('content').hasError('required')">Please write something here!</nz-form-explain>
+    <nz-form-control [nzSpan]="18">
+      <quill-editor [modules]="config" style="height: 600px"  formControlName="content"></quill-editor>
+      <nz-form-explain *ngIf="validateForm.get('content').dirty&&validateForm.get('content').hasError('required')">请输入内容。</nz-form-explain>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
@@ -56,6 +56,4 @@
     </nz-form-control>
   </nz-form-item>
 </form>
-<div>
-  <quill-editor [modules]="config" style="height: 600px" [(ngModel)]="text"></quill-editor>
-</div>
+  

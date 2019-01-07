@@ -170,7 +170,7 @@ export class IndexComponent implements OnInit {
         this.router.navigate(["index"]);
         break;
       case "admin/index":
-        this.router.navigate(["admin/index"]);
+        this.router.navigate(["./admin/index"]);
         break;
       default:
         break;
