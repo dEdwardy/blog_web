@@ -29,7 +29,7 @@ const routes: Routes = [
     ]
   },
   { path:'details', component: DetailsComponent },
-  { path:'reg', component:RegComponent },
+  { path:'reg', children:[{path:'', loadChildren:'./routes/reg/reg.module#RegModule'}] },
   { path:'notfound', component: NotFoundComponent },
   { path: '**', redirectTo: 'index', pathMatch: 'full' }
 ];
