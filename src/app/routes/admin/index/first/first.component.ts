@@ -55,12 +55,9 @@ export class FirstComponent implements OnInit {
     console.log(value);
     let { title, content, label } = value;
     let token = localStorage.getItem("token");
-    const reg = new RegExp("(<img.*src=\"\.*?\>)");
-    let txt = content.replace(/<(?!img).*?>/g, "");  
-    let img = content.replace(/<(?!img).*?>/g, ""); 
-    console.log(txt);
-    console.log(token);
-    console.log(typeof content);
+    console.log(content)
+    let img = content.match(/\<img(\s)(\S*)\/\>/g); 
+    console.log(img);
     
     // try {
     //   this.data = await this.articleService.writeArtilce({ title, content, label });
