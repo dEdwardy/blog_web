@@ -14,12 +14,17 @@ import { BasicAuthInterceptor } from './helpers/basicAuth.interceptor'
 import zh from '@angular/common/locales/zh';
 import { DetailsComponent } from './routes/admin/details/details.component';
 import { NotFoundComponent } from './routes/not-found/not-found.component';
-import { RegComponent } from './routes/reg/reg.component';
 import { IndexComponent } from './routes/index/index.component';
 import { StrLengthPipe } from './common/pipe/str-length.pipe';
+<<<<<<< HEAD
 import { QuillModule } from 'ngx-quill'
 import { CanAuthProvide } from './services/guard/can-auth.provide'
 import { PathPipe } from './common/pipe/path.pipe'
+=======
+import { PathPipe } from './common/pipe/path.pipe';
+import { QuillModule } from 'ngx-quill'
+import { CanAuthProvide } from './services/guard/can-auth.provide';
+>>>>>>> 1b82394f96d1bcc3f9d9f519591c12edcdf212d7
 
 registerLocaleData(zh);
 
@@ -31,7 +36,6 @@ registerLocaleData(zh);
     IndexComponent,
     DetailsComponent,
     NotFoundComponent,
-    RegComponent,
     StrLengthPipe,
     PathPipe
     // DetailComponent,
