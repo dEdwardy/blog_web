@@ -12,18 +12,11 @@ export class ArticleComponent implements OnInit {
   resData:any;
   total: any;
   pageNumber: number;
-<<<<<<< HEAD
-  constructor(public articleService:ArtilceService,public router:Router) { }
-  handleClick(item) {
-    //console.log(item)
-    this.router.navigate(["./details"], { queryParams: { _id: item._id } });
-=======
   constructor(public articleService:ArtilceService, public router:Router) { }
   handleClick(item) {
     //console.log(item)
     this.router.navigate(['./details'], { queryParams: { '_id': item._id } });
 
->>>>>>> 1b82394f96d1bcc3f9d9f519591c12edcdf212d7
   }
   async loadData(page: number = 1) {
     try {

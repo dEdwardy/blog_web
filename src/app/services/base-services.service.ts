@@ -13,8 +13,7 @@ export class BaseServicesService {
         return this.http.get(url, {params} ).toPromise();
       }
       case 'post':{
-        let headers =new HttpHeaders({'Content-Type':'application/x-www-form-urlencode;charset=utf-8'});
-        return this.http.post(url,params,{ headers }).toPromise();;
+        return this.http.post(url,params).toPromise();;
       }
       case 'delete':{
         return this.http.delete(url,params).toPromise();
