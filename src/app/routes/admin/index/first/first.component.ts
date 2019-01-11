@@ -58,19 +58,18 @@ export class FirstComponent implements OnInit {
     console.log(content)
     let img = content.match(/\<img(\s)(\S*)\/\>/g); 
     console.log(img);
-    
-    // try {
-    //   this.data = await this.articleService.writeArtilce({ title, content, label });
-    //   if (this.data.success === 1) {
-    //     this.message.success('OK！');
-    //     this.validateForm.reset();
-    //   } else {
-    //     this.message.warning('Oops,Something goes wrong!');
-    //   }
-    //   value = [];
-    // } catch (err) {
-    //   console.log(err)
-    // }
+    try {
+      this.data = await this.articleService.writeArtilce({ title, content, label });
+      if (this.data.success === 1) {
+        this.message.success('OK！');
+        this.validateForm.reset();
+      } else {
+        this.message.warning('Oops,Something goes wrong!');
+      }
+      value = [];
+    } catch (err) {
+      console.log(err)
+    }
   };
   initSelect = () => {
     const children = [];

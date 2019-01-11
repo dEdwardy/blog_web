@@ -9,6 +9,7 @@ import { LoginService } from "../../services/login/login.service";
 import { NzMessageService, NzModalService } from "ng-zorro-antd";
 import { Router } from "@angular/router";
 import { ArtilceService } from "../../services/article/artilce.service";
+import { Utils } from "src/app/common/helper/utils-helper";
 
 @Component({
   selector: "mpr-index",
@@ -46,13 +47,13 @@ export class IndexComponent implements OnInit {
   loginOut() {
     this.authority=null;
     if (localStorage.getItem("token")) localStorage.removeItem("token");
-    if (localStorage.getItem("userinfo")) localStorage.removeItem("userinfo");
+    if (Utils.getCookie("userinfo")) Utils.delCookie('userinfo');
     this.validateLoginForm.reset();
   }
   isLogin(): Boolean {
-    if (localStorage.getItem("userinfo")) {
-      this.username = JSON.parse(localStorage.getItem("userinfo")).username;
-      this.avatar = JSON.parse(localStorage.getItem("userinfo")).avatar;
+    if (Utils.getCookie("userinfo")) {
+      this.username = JSON.parse(Utils.getCookie("userinfo")).username;
+      this.avatar = JSON.parse(Utils.getCookie("userinfo")).avatar;
       return true;
     }
     return false;
@@ -123,6 +124,9 @@ export class IndexComponent implements OnInit {
     }
     this.checkAuthority();
   }
+  getAuthority(){
+    return JSON.parse(Utils.getCookie("userinfo"))?JSON.parse(Utils.getCookie("userinfo")).authority:0
+  }
   //登录
   async submitLoginForm(value) {
     let reg = new RegExp(
@@ -140,17 +144,19 @@ export class IndexComponent implements OnInit {
           password: this.trim(password)
         });
         if (this.res.success === 1) {
+          let userinfo = {
+            username: this.res.data.username,
+            avatar: this.res.data.avatar,
+            email: this.res.data.email,
+            authority: this.res.data.authority
+          };
+          localStorage.setItem("token", this.res.token || "");
+          Utils.setCookie('userinfo',JSON.stringify(userinfo));
           if (this.res.data.authority === 1) {
             this.authority = 1;
           }
           console.log(this.res);
-          let userinfo = {
-            username: this.res.data.username,
-            avatar: this.res.data.avatar,
-            email: this.res.data.email
-          };
-          localStorage.setItem("token", this.res.token || "");
-          localStorage.setItem("userinfo", JSON.stringify(userinfo));
+          
         } else {
           this.message.error("账号或密码错误!");
           console.log("登录失败!");
@@ -240,7 +246,7 @@ export class IndexComponent implements OnInit {
     }
   }
   async checkAuthority(){
-    let userinfo = localStorage.getItem('userinfo')
+    let userinfo = Utils.getCookie('userinfo')
     if(!userinfo){
       this.authority = 0;
       return;
@@ -251,7 +257,6 @@ export class IndexComponent implements OnInit {
     try {
       this.authorityRes = await this.loginService.uniqueEmail({email})
       this.authority =  this.authorityRes.authority ;
-      console.log(this.authority)
     } catch (error) {
       console.log(error)
     }
@@ -274,5 +279,7 @@ export class IndexComponent implements OnInit {
         [Validators.email, Validators.required, this.EmailValidator]
       ]
     });
+    console.log(
+      this.getAuthority())
   }
 }

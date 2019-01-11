@@ -10,7 +10,7 @@ import { AppRoutingModule } from './/app-routing.module';
 import { LoginComponent } from './routes/login/login.component';
 import { LoginService } from './services/login/login.service';
 import { IndexComponent as AdminIndex } from './routes/admin/index/index.component';
-import { BasicAuthInterceptor } from './helpers/basicAuth.interceptor'
+import { BasicAuthInterceptor } from './services/guard/basicAuth.interceptor'
 import zh from '@angular/common/locales/zh';
 import { DetailsComponent } from './routes/admin/details/details.component';
 import { NotFoundComponent } from './routes/not-found/not-found.component';

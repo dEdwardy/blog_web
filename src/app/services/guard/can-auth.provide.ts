@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import { Utils } from '../../common/helper/utils-helper'
 
 
 @Injectable()
@@ -15,14 +16,14 @@ export class CanAuthProvide implements CanActivate {
   }
 
   can() {
-    let token = localStorage.getItem('token')
+    let token = Utils.getCookie('userinfo')
     if(token){
-      console.log('Token 通过')
+      console.log('已登录')
       return true;
     }
     else{
-      console.log('401')
       this.router.navigate(['./index']);
+      console.log('请先登录')
       return false;
     }
   }

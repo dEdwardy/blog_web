@@ -22,8 +22,8 @@
               <div nz-row style="margin:22px 4px 2px 4px;font-size: 16px ">
                 <b>{{ item.title }}</b>
               </div>
-              <div nz-row class="content" style="margin:10px 4px">
-                {{  limitLength(item.content,50) }}
+              <div nz-row class="content" style="margin:10px 4px" [innerHTML]="limitLength(item.content,50)" >
+                <!-- {{  limitLength(item.content,50) }} -->
               </div>
               <div
                 nz-row
