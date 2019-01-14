@@ -2,13 +2,6 @@
   text-align: center;
   header {
     .header-top {
-      ::ng-deep [nz-carousel-content] {
-        height: 160px;
-        line-height: 160px;
-        background: #364d79;
-        color: #fff;
-        overflow: hidden;
-      }
       h3 {
         color: #fff;
       }
@@ -17,17 +10,26 @@
       overflow: hidden;
       font-size: 20px;
       ul {
-        line-height: 64px;
+        line-height: 40px;
+        height: 54px;
+        overflow: hidden;
         margin-bottom: 0;
+        margin-left: 0 !important;
+        text-align: left;
         li {
+          font-size: 16px;
+          height:54px;
           position: relative;
           display: inline-block;
           list-style: none;
           padding: 6px 14px;
           border-bottom: 2px solid transparent;
-          &:hover {
-            border-bottom: 2px solid rgb(53, 7, 105);
-            color: red;
+          &:first-child{
+            margin-left: 15.1%;
+          }
+          &:not(:last-child):hover {
+            border-bottom: 2px solid #364d79;
+            color: #364d79;
             cursor: pointer;
           }
         }
@@ -41,6 +43,13 @@
       }
   }
 }
+::ng-deep [nz-carousel-content] {
+  height: 160px;
+  line-height: 160px;
+  background: #364d79;
+  color: #fff;
+  overflow: hidden;
+}
 ::ng-deep nz-list-item {
   padding: 0 !important;
   overflow: hidden;
@@ -53,8 +62,27 @@ button {
   margin: 15px;
   bottom: 42px;
 }
-::ng-deep nz-pagination {
-  position: fixed !important;
-  right: 150px;
-  bottom: 44px;
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+  font-size: 12px;
+  color:#999;
+  font-family: 'Microsoft YaHei';
+  text-indent: 6px;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  font-size: 12px;
+  color:#999;
+  font-family: 'Microsoft YaHei';
+  text-indent: 6px;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+  font-size: 12px;
+  color:#999;
+  font-family: 'Microsoft YaHei';
+  text-indent: 6px;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  font-size: 12px;
+  color:#999;
+  font-family: 'Microsoft YaHei';
+  text-indent: 6px;
 }

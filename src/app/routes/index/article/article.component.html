@@ -5,7 +5,7 @@
         [nzSize]="small"
         [nzPagination]="pagination"
       >
-        <ng-template #item let-item>
+        <ng-template #item let-item style="border-radius: 6px">
           <div
             row
             style="margin:10px 0;clear: both;overflow: hidden;padding: 1% 0"
@@ -40,9 +40,8 @@
               </div>
             </div>
           </div>
-
-          <div class="item"></div>
         </ng-template>
+        <div *ngIf="!data" style="margin-top: 20px">暂无数据</div>
         <ng-template #pagination>
           <nz-pagination
             [nzPageIndex]="1"

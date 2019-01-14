@@ -18,7 +18,7 @@ import { Utils } from "src/app/common/helper/utils-helper";
 })
 export class IndexComponent implements OnInit {
   authority: Number = 0;
-  authorityRes:any;
+  authorityRes: any;
   regRes: any = {};
   total: any;
   pageNumber: number;
@@ -44,10 +44,11 @@ export class IndexComponent implements OnInit {
   res: any = {};
   username: string;
   avatar: string;
+  keywords: string;
   loginOut() {
-    this.authority=null;
+    this.authority = null;
     if (localStorage.getItem("token")) localStorage.removeItem("token");
-    if (Utils.getCookie("userinfo")) Utils.delCookie('userinfo');
+    if (Utils.getCookie("userinfo")) Utils.delCookie("userinfo");
     this.validateLoginForm.reset();
   }
   isLogin(): Boolean {
@@ -124,8 +125,10 @@ export class IndexComponent implements OnInit {
     }
     this.checkAuthority();
   }
-  getAuthority(){
-    return JSON.parse(Utils.getCookie("userinfo"))?JSON.parse(Utils.getCookie("userinfo")).authority:0
+  getAuthority() {
+    return JSON.parse(Utils.getCookie("userinfo"))
+      ? JSON.parse(Utils.getCookie("userinfo")).authority
+      : 0;
   }
   //登录
   async submitLoginForm(value) {
@@ -151,12 +154,11 @@ export class IndexComponent implements OnInit {
             authority: this.res.data.authority
           };
           localStorage.setItem("token", this.res.token || "");
-          Utils.setCookie('userinfo',JSON.stringify(userinfo));
+          Utils.setCookie("userinfo", JSON.stringify(userinfo));
           if (this.res.data.authority === 1) {
             this.authority = 1;
           }
           console.log(this.res);
-          
         } else {
           this.message.error("账号或密码错误!");
           console.log("登录失败!");
@@ -223,17 +225,21 @@ export class IndexComponent implements OnInit {
     //console.log(item)
     this.router.navigate(["details"], { queryParams: { _id: item._id } });
   }
-  async loadPageNumber() {
+  async loadPageNumber(params = {}) {
     try {
-      this.total = await this.articleService.getArticle({ count: 1 });
+      this.total = await this.articleService.getArticle({
+        ...params,
+        count: 1
+      });
       this.pageNumber = this.total.length;
     } catch (error) {
       console.log(error);
     }
   }
-  async loadData(page: number = 1) {
+  async loadData(page: number = 1, params = {}) {
     try {
       this.resData = await this.articleService.getArticle({
+        ...params,
         skip: (page - 1) * 10,
         limit: 10
       });
@@ -245,22 +251,24 @@ export class IndexComponent implements OnInit {
       console.log(error);
     }
   }
-  async checkAuthority(){
-    let userinfo = Utils.getCookie('userinfo')
-    if(!userinfo){
+  async checkAuthority() {
+    let userinfo = Utils.getCookie("userinfo");
+    if (!userinfo) {
       this.authority = 0;
       return;
     }
     let email = JSON.parse(userinfo).email;
-    console.log(JSON.parse(userinfo))
-    console.log(email)
+    console.log(JSON.parse(userinfo));
+    console.log(email);
     try {
-      this.authorityRes = await this.loginService.uniqueEmail({email})
-      this.authority =  this.authorityRes.authority ;
+      this.authorityRes = await this.loginService.uniqueEmail({ email });
+      this.authority = this.authorityRes.authority;
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
+  
+  
   ngOnInit(): void {
     this.checkAuthority();
     this.loadPageNumber();
@@ -279,7 +287,6 @@ export class IndexComponent implements OnInit {
         [Validators.email, Validators.required, this.EmailValidator]
       ]
     });
-    console.log(
-      this.getAuthority())
+    console.log(this.getAuthority());
   }
 }

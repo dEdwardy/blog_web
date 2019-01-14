@@ -9,13 +9,32 @@
     </div>
     <div class="header-bottom">
       <ul>
-        <li>nav 1</li>
-        <li>nav 2</li>
-        <li>nav 3</li>
+        <li>全部文章</li>
+        <li>Html & Css</li>
+        <li>Javascript</li>
+        <li>React</li>
+        <li>Vue</li>
+        <li>Angualr</li>
+        <li>
+          <span>
+            <input 
+            nz-input 
+            placeholder="请输入关键字"
+            id="keyWords"
+            style="width: 176px;">
+            <span 
+            class="search"
+            style="position: relative;left: -20px;cursor: pointer;"
+            >
+              <i nz-icon type="search" theme="outline"></i>
+            </span>
+          </span>
+        </li>
       </ul>
+      
     </div>
   </header>
-  <div nz-row style="padding-top: 10px" class="main">
+  <div nz-row style="padding-top: 10px" class="main" style="min-height:724px">
     <div
       nz-col
       [nzSm]="{ span: 14, offset: 2 }"
@@ -23,60 +42,6 @@
       [nzLg]="{ span: 11, offset: 4 }"
       style="padding: 10px 10px 20px 10px;"
     > 
-      <!-- <nz-list
-        [nzDataSource]="data"
-        [nzItemLayout]="'vertical'"
-        [nzRenderItem]="item"
-        [nzSize]="small"
-        [nzPagination]="pagination"
-      >
-        <ng-template #item let-item>
-          <div
-            row
-            style="margin:10px 0;clear: both;overflow: hidden;padding: 1% 0"
-            class="item"
-          >
-            <div nz-col [nzSpan]="7" style="padding:2%">
-              <img
-                alt="logo"
-                src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
-                style="padding:4% 0;width: 100%;"
-              />
-            </div>
-            <div nz-col [nzSpan]="14" [nzPush]="1" style="text-align:left">
-              <div nz-row style="margin:22px 4px 2px 4px;font-size: 16px ">
-                <b>{{ item.title }}</b>
-              </div>
-              <div nz-row class="content" style="margin:10px 4px">
-                {{ item.content | strLength: 50 }}
-              </div>
-              <div
-                nz-row
-                style="padding:6px 4px;border-top:1px dashed gray;color: rgb(170, 169, 169);margin-top:8px"
-              >
-                {{ item.create_date | date: "yyyy-MM-dd HH:mm:ss" }}
-              </div>
-              <div
-                nz-row
-                (click)="handleClick(item)"
-                style="float:right;cursor: pointer;padding: 4px 2px"
-              >
-                阅读全文&gt;&gt;
-              </div>
-            </div>
-          </div>
-
-          <div class="item"></div>
-        </ng-template>
-        <ng-template #pagination>
-          <nz-pagination
-            [nzPageIndex]="1"
-            [nzTotal]="pageNumber"
-            (nzPageIndexChange)="loadData($event)"
-            nzShowQuickJumper
-          ></nz-pagination>
-        </ng-template>
-      </nz-list> -->
       <router-outlet></router-outlet>
     </div>
     <div
