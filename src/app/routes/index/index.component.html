@@ -8,14 +8,33 @@
       </nz-carousel>
     </div>
     <div class="header-bottom">
-      <ul>
-        <li>nav 1</li>
-        <li>nav 2</li>
-        <li>nav 3</li>
+      <ul class="ul">
+        <li class="category">全部文章</li>
+        <li class="category">Html & Css</li>
+        <li class="category">Javascript</li>
+        <li class="category">React</li>
+        <li class="category">Vue</li>
+        <li class="category">Angualr</li>
+        <li>
+          <span>
+            <input 
+            nz-input 
+            placeholder="请输入关键字"
+            id="keyWords"
+            style="width: 176px;">
+            <span 
+            class="search"
+            style="position: relative;left: -20px;cursor: pointer;"
+            >
+              <i nz-icon type="search" theme="outline"></i>
+            </span>
+          </span>
+        </li>
       </ul>
+      
     </div>
   </header>
-  <div nz-row style="padding-top: 10px" class="main">
+  <div nz-row style="padding-top: 10px" class="main" style="min-height:724px">
     <div
       nz-col
       [nzSm]="{ span: 14, offset: 2 }"

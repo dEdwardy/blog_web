@@ -10,6 +10,7 @@ import {
 import { Router } from "@angular/router";
 import { NzMessageService } from "ng-zorro-antd";
 import { Observable, throwError } from "rxjs";
+import { Utils } from '../../common/helper/utils-helper'
 import { catchError } from "rxjs/operators";
 
 @Injectable()
@@ -33,6 +34,7 @@ export class BasicAuthInterceptor implements HttpInterceptor {
         switch (err.status) {
           case 401:
             this.message.warning("当前身份已过期，请重新登录！");
+            Utils.delCookie('userinfo');
             localStorage.clear();
             setTimeout(() => {
               this.router.navigate(["/index"]);
