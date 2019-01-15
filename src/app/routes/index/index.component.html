@@ -1,9 +1,9 @@
 <div class="all">
   <header>
     <div class="header-top">
-      <nz-carousel nzAutoPlay style="height: 160px;">
+      <nz-carousel nzAutoPlay style="height:400px">
         <div nz-carousel-content *ngFor="let img of array" [ngStyle]="{ 'background-image': 'url('+img+')' }">
-          <!-- <img src="{{ img }}" alt="banner" class="banner" style="width:100vw"> -->
+          <img src="{{ img }}" alt="banner" class="banner" style="width:100vw;height:400px">
         </div>
       </nz-carousel>
     </div>
@@ -14,7 +14,7 @@
         <li class="category">Javascript</li>
         <li class="category">React</li>
         <li class="category">Vue</li>
-        <li class="category">Angualr</li>
+        <li class="category">Angular</li>
         <li>
           <span>
             <input 
