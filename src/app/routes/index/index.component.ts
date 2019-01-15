@@ -38,7 +38,13 @@ export class IndexComponent implements OnInit {
   loading: Boolean = false;
   status: number;
   emailRes: any;
-  array = [1, 2, 3, 4];
+  array = [
+    '../../../assets/images/banner/1.jpg',
+    '../../../assets/images/banner/2.jpg',
+    '../../../assets/images/banner/3.jpg',
+    '../../../assets/images/banner/4.jpg',
+    '../../../assets/images/banner/5.jpg',
+  ];
   validateLoginForm: FormGroup;
   validateRegForm: FormGroup;
   res: any = {};

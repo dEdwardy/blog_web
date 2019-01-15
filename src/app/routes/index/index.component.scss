@@ -5,9 +5,13 @@
       ::ng-deep [nz-carousel-content] {
         height: 160px;
         line-height: 160px;
-        background: #364d79;
         color: #fff;
-        overflow: hidden;
+      }
+      .banner{
+        width: 100%;
+        background-repeat: no-repeat;
+        background-size: cover; 
+        -moz-background-size: cover;
       }
       h3 {
         color: #fff;
@@ -52,9 +56,4 @@
 button {
   margin: 15px;
   bottom: 42px;
-}
-::ng-deep nz-pagination {
-  position: fixed !important;
-  right: 150px;
-  bottom: 44px;
 }

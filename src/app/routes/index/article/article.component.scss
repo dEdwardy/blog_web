@@ -16,8 +16,6 @@ button {
   margin: 15px;
   bottom: 42px;
 }
-::ng-deep nz-pagination {
-  position: fixed !important;
-  right: 150px;
-  bottom: 44px;
+::ng-deep .ant-list-pagination{
+  margin:10px 0 20px 0 !important;
 }
