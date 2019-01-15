@@ -256,7 +256,7 @@
         </nz-tab>
       </nz-tabset>
       <div *ngIf="isLogin()">
-        <img src="{{ avatar | path }}" alt="avatar" width="160" height="160" style="border-radius: 50%"/>
+        <img src="{{ avatar | path }}" alt="avatar" width="130" height="130" style="border-radius: 50%"/>
         <div style="padding: 12px 0"><span>欢迎：</span>{{ this.username }}</div>
         <div style="padding: 4px 0">光临我的博客~</div>
         <button nz-button nzType="primary" *ngIf="getAuthority()==1" (click)="routeTo('admin/index')">进入管理界面</button>
