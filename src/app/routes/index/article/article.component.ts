@@ -8,6 +8,8 @@ import { NzUploadBtnComponent } from 'ng-zorro-antd';
   styleUrls: ['./article.component.scss']
 })
 export class ArticleComponent implements OnInit {
+  node:any;
+  nodeName:any;
   totalSearch:any;
   resDataSearch;
   keyWords:any;
@@ -29,9 +31,11 @@ export class ArticleComponent implements OnInit {
         limit: 10
       });
       this.data = this.resData.data;
-      this.data.map(item => {
-        item.label = item.label.split(",").join(" & ");
-      });
+      if(this.data){
+        this.data.map(item => {
+          item.label = item.label.split(",").join(" & ");
+        });
+      }
     } catch (error) {
       console.log(error);
     }
@@ -63,6 +67,21 @@ export class ArticleComponent implements OnInit {
       if(e.keyCode===13){
         this.handleClickSearch(this.keyWords.value)
       }
+    })
+    let ul = document.getElementsByClassName('ul')[0];
+    let li = document.getElementsByClassName('category');
+    ul.addEventListener('click',(e) => {
+      this.node = e.target;
+      this.nodeName = this.node.nodeName;
+      if(this.nodeName==='LI'||this.nodeName==='li'){
+        let keyWords = this.node.innerHTML
+        if(keyWords==='全部文章')keyWords=''
+        this.loadPageNumber({ keyWords })
+        this.loadData(1,{ keyWords })
+        console.log(this.node.innerHTML)
+
+      }
+
     })
   }
   ngOnDestroy(){
