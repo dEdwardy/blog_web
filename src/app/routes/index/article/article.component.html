@@ -44,6 +44,7 @@
         <div *ngIf="!data" style="margin-top: 20px">暂无数据</div>
         <ng-template #pagination>
           <nz-pagination
+            *ngIf="data"
             [nzPageIndex]="1"
             [nzTotal]="pageNumber"
             (nzPageIndexChange)="loadData($event)"

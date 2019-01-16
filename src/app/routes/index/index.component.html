@@ -1,7 +1,7 @@
 <div class="all">
   <header>
     <div class="header-top">
-      <nz-carousel nzAutoPlay style="height:400px">
+      <nz-carousel [nzAutoPlaySpeed]="5000" nzAutoPlay style="height:400px">
         <div nz-carousel-content *ngFor="let img of array" [ngStyle]="{ 'background-image': 'url('+img+')' }">
           <img src="{{ img }}" alt="banner" class="banner" style="width:100vw;height:400px">
         </div>
