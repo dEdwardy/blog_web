@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ArtilceService }  from '../../../services/article/artilce.service'
 import { Router } from '@angular/router'
-import { NzUploadBtnComponent } from 'ng-zorro-antd';
+import { pathHead } from '../../../config'
 @Component({
   selector: 'mpr-article',
   templateUrl: './article.component.html',
@@ -39,6 +39,12 @@ export class ArticleComponent implements OnInit {
     } catch (error) {
       console.log(error);
     }
+  }
+  srcFilter(arr){
+    if(arr.length===0){
+      return pathHead+'/images/default.png'
+    }
+    return pathHead+arr[0];
   }
   async loadPageNumber(params={}) {
     try {

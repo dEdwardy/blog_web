@@ -12,11 +12,12 @@
             class="item"
           >
             <div nz-col [nzSpan]="7" style="padding:2%">
-              <img
+              <!-- <img
                 alt="logo"
                 src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
                 style="padding:4% 0;width: 100%;"
-              />
+              /> -->
+              <img src="{{ srcFilter(item.image_url) }}"  style="padding:4% 0;width: 100%;" alt="图片">
             </div>
             <div nz-col [nzSpan]="14" [nzPush]="1" style="text-align:left">
               <div nz-row style="margin:22px 4px 2px 4px;font-size: 16px ">
