@@ -2,7 +2,7 @@
     [nzDataSource]="data"
     [nzItemLayout]="'vertical'"
     [nzRenderItem]="item"
-    [nzSize]="small"
+    [nzSize]="'small'"
     [nzPagination]="pagination" >
     <ng-template #item let-item>
       <nz-list-item  [nzExtra]="extra" style="height:60px;" (click)="handleClick(item)" style="cursor: pointer;height: 64px">
