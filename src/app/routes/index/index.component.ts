@@ -152,8 +152,8 @@ export class IndexComponent implements OnInit {
           email,
           password: this.trim(password)
         });
-        window.location.reload();
         if (this.res.success === 1) {
+          window.location.reload();
           let userinfo = {
             username: this.res.data.username,
             avatar: this.res.data.avatar,

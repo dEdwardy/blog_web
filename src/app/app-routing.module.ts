@@ -12,7 +12,6 @@ const routes: Routes = [
   { path: '', redirectTo: 'index', pathMatch: 'full' },
   { path: 'index',
     component:IndexComponent, 
-    pathMatch: 'full',
     children:[
       {path: '',loadChildren: './routes/index/article/article.module#ArticleModule'},
       // {path: 'detail',loadChildren: './routes/index/detail/detail.module#DetailModule'}
