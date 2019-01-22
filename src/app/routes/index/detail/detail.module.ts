@@ -13,4 +13,4 @@ import { NgZorroAntdModule } from 'ng-zorro-antd'
   ],
   declarations: [DetailComponent]
 })
-export class ArticleModule { }
+export class DetailModule { }

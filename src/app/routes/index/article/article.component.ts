@@ -20,7 +20,7 @@ export class ArticleComponent implements OnInit {
   constructor(public articleService:ArtilceService, public router:Router) { }
   handleClick(item) {
     //console.log(item)
-    this.router.navigate(['./details'], { queryParams: { '_id': item._id } });
+    this.router.navigate(['./index/detail'], { queryParams: { '_id': item._id } });
 
   }
   async loadData(page: number = 1,params = {}) {

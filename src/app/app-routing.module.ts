@@ -14,7 +14,7 @@ const routes: Routes = [
     component:IndexComponent, 
     children:[
       {path: '',loadChildren: './routes/index/article/article.module#ArticleModule'},
-      // {path: 'detail',loadChildren: './routes/index/detail/detail.module#DetailModule'}
+      {path: 'detail',loadChildren: './routes/index/detail/detail.module#DetailModule'}
     ]  
   },
   { path: 'login', component: LoginComponent},
