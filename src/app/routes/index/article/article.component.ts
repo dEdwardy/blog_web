@@ -49,19 +49,27 @@ export class ArticleComponent implements OnInit {
   }
   async handleClickDislike(item){
     console.log(item)
-    const data = await this.articleService.dislikeArticle({
-      id: item._id,
-      dislike: 1
-    })
+    try {
+      const data = await this.articleService.dislikeArticle({
+        id: item._id,
+        dislike: 1
+      })
+    } catch (err) {
+      console.log(err)
+    }
     if(this.keywords=='全部文章')this.keywords=''
     this.loadData(1,{keyWords:this.keywords});
   }
   async handleClickLike(item){
-    console.log(item)
-    const data = await this.articleService.likeArticle({
-      id: item._id,
-      like: 1
-    })
+    console.log(item);
+    try {
+      const data = await this.articleService.likeArticle({
+        id: item._id,
+        like: 1
+      })
+    } catch (err) {
+      console.log(err)
+    }
     if(this.keywords=='全部文章')this.keywords=''
     this.loadData(1,{keyWords:this.keywords});
   }
@@ -69,8 +77,8 @@ export class ArticleComponent implements OnInit {
     try {
       this.total = await this.articleService.getArticle({ ...params,count: 1 });
       this.pageNumber = this.total.length;
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      console.log(err);
     }
   }
   limitLength(value,number=40){
@@ -96,10 +104,10 @@ export class ArticleComponent implements OnInit {
     })
     let ul = document.getElementsByClassName('ul')[0];
     ul.addEventListener('click',(e) => {
-      that.router.navigate(['./index'])
       this.node = e.target;
       this.nodeName = this.node.nodeName;
       if(this.nodeName==='LI'||this.nodeName==='li'){
+        that.router.navigate(['./index'])
         let keyWords = this.node.innerHTML
         this.keywords = keyWords;
         if(keyWords==='全部文章')keyWords='';

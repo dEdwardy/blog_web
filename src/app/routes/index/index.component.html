@@ -1,4 +1,4 @@
-<div class="all">
+<div class="all" ngCloak>
   <header>
     <div class="header-top">
       <nz-carousel [nzAutoPlaySpeed]="5000" nzAutoPlay style="height:400px">
@@ -42,7 +42,7 @@
       [nzLg]="{ span: 11, offset: 4 }"
       style="padding: 10px 10px 20px 10px;"
     > 
-      <router-outlet></router-outlet>
+      <router-outlet ngCloak></router-outlet>
     </div>
     <div
       nz-col
