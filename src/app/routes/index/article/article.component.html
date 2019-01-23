@@ -31,12 +31,26 @@
               >
                 {{ item.create_date | date: "yyyy-MM-dd HH:mm:ss" }}
               </div>
-              <div
-                nz-row
+              <div ng-row>
+                  <span
+                  nz-col nzSpan="16"
+                >
+                  <span nzTitle="踩" nzPlacement="bottom" nz-tooltip>
+                    <i nz-icon type="dislike" theme="outline" class="dislike" (click)="handleClickDislike(item)"></i>
+                    <span class="dislikeNumber">{{ item.dislike }}</span>
+                  </span>
+                  <span nzTitle="赞" nzPlacement="bottom" nz-tooltip>
+                      <i nz-icon type="like" theme="outline"  class="like" (click)="handleClickLike(item)"></i> 
+                      <span class="likeNumber">{{ item.like }}</span> 
+                    </span>
+                </span>
+                <span
+                nz-col nzSpan="8"
                 (click)="handleClick(item)"
-                style="float:right;cursor: pointer;padding: 4px 2px"
+                style="text-align: right;cursor: pointer;padding: 4px 2px"
               >
                 阅读全文&gt;&gt;
+              </span>
               </div>
             </div>
           </div>

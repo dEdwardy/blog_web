@@ -24,4 +24,16 @@ export class ArtilceService {
       .then(res => res)
       .catch(e => console.log(e));
   }
+  public likeArticle(params) {
+    return this.baseService
+      .query("post", baseUrl + "/articles/likeArticle", params)
+      .then(res => res)
+      .catch(e => console.log(e));
+  }
+  public dislikeArticle(params) {
+    return this.baseService
+      .query("post", baseUrl + "/articles/dislikeArticle", params)
+      .then(res => res)
+      .catch(e => console.log(e));
+  }
 }

@@ -13,6 +13,7 @@ export class ArticleComponent implements OnInit {
   totalSearch:any;
   resDataSearch;
   keyWords:any;
+  keywords:string = '';
   data: any;
   resData:any;
   total: any;
@@ -45,6 +46,24 @@ export class ArticleComponent implements OnInit {
       return pathHead+'/images/default.png'
     }
     return pathHead+arr[0];
+  }
+  async handleClickDislike(item){
+    console.log(item)
+    const data = await this.articleService.dislikeArticle({
+      id: item._id,
+      dislike: 1
+    })
+    if(this.keywords=='全部文章')this.keywords=''
+    this.loadData(1,{keyWords:this.keywords});
+  }
+  async handleClickLike(item){
+    console.log(item)
+    const data = await this.articleService.likeArticle({
+      id: item._id,
+      like: 1
+    })
+    if(this.keywords=='全部文章')this.keywords=''
+    this.loadData(1,{keyWords:this.keywords});
   }
   async loadPageNumber(params={}) {
     try {
@@ -82,7 +101,8 @@ export class ArticleComponent implements OnInit {
       this.nodeName = this.node.nodeName;
       if(this.nodeName==='LI'||this.nodeName==='li'){
         let keyWords = this.node.innerHTML
-        if(keyWords==='全部文章')keyWords=''
+        this.keywords = keyWords;
+        if(keyWords==='全部文章')keyWords='';
         this.loadPageNumber({ keyWords })
         this.loadData(1,{ keyWords })
         console.log(this.node.innerHTML)

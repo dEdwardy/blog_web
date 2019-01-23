@@ -3,6 +3,14 @@
   img{
     margin:0 12px;
   }
+  .like,.dislike{
+    margin:0 10px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  .likeNumber,.dislikeNumber{
+    margin:0  2px;
+  }
 }
 ::ng-deep nz-list-item {
   padding: 0 !important;
