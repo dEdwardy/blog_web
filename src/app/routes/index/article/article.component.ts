@@ -64,6 +64,7 @@ export class ArticleComponent implements OnInit {
     this.loadData();
   }
   ngAfterViewInit(){
+    let that = this;
     this.keyWords = document.querySelector('#keyWords');
     let btn = document.querySelector('.search');
     btn.addEventListener('click',() => {
@@ -76,6 +77,7 @@ export class ArticleComponent implements OnInit {
     })
     let ul = document.getElementsByClassName('ul')[0];
     ul.addEventListener('click',(e) => {
+      that.router.navigate(['./index'])
       this.node = e.target;
       this.nodeName = this.node.nodeName;
       if(this.nodeName==='LI'||this.nodeName==='li'){
@@ -84,7 +86,6 @@ export class ArticleComponent implements OnInit {
         this.loadPageNumber({ keyWords })
         this.loadData(1,{ keyWords })
         console.log(this.node.innerHTML)
-
       }
 
     })
