@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ArtilceService } from '../../../services/article/artilce.service'
 import { pathHead } from 'src/app/config';
 import { Utils } from '../../../common/helper/utils-helper'
@@ -11,11 +11,12 @@ import { NzMessageService } from 'ng-zorro-antd'
   styleUrls: ['./detail.component.scss']
 })
 export class DetailComponent implements OnInit {
+  comment:any;
   text:string = '';
   commentData: any;
   data: any;
   item :any={ };
-  constructor(private route: ActivatedRoute, private articleService: ArtilceService, public message:NzMessageService,) {
+  constructor(private route: ActivatedRoute, private articleService: ArtilceService, public message:NzMessageService, private router:Router) {
 
   }
   showTextarea:Boolean = false;
@@ -36,6 +37,10 @@ export class DetailComponent implements OnInit {
     }
   }
   async handleSend(){
+    if(!Utils.getCookie('userinfo')){
+      this.message.warning('请登录后再操作');
+      return;
+    }
     if(this.text.trim()==''){
       this.message.warning('请输入留言内容');
       return;
@@ -46,7 +51,7 @@ export class DetailComponent implements OnInit {
       id: this.id,
       avatar:JSON.parse(Utils.getCookie("userinfo")).avatar,
       name: JSON.parse(Utils.getCookie("userinfo")).username,
-      create_by:JSON.parse(Utils.getCookie("userinfo")).email,
+      email:JSON.parse(Utils.getCookie("userinfo")).email,
       content: this.text,
       type: 2  //1 评论 2 留言
     };
@@ -61,8 +66,28 @@ export class DetailComponent implements OnInit {
     this.loadDetail()
 
   }
+  async handleDelete(item){
+    try {
+      let params = {
+        id:this.id,
+        commentId:item._id
+      }
+      this.commentData = await this.articleService.deleteComment({params});
+      if(this.commentData.success){
+        this.message.success('删除成功')
+        this.loadDetail();
+      }else{
+        this.message.warning('删除失败')
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
+  localUserEmail(){
+    if(Utils.getCookie('userinfo')) return JSON.parse(Utils.getCookie('userinfo')).email
+  }
   ngOnInit() {
-    this.loadDetail()
+    this.loadDetail();
     if (Utils.getCookie("userinfo")) {
       this.avatar=JSON.parse(Utils.getCookie("userinfo")).avatar;
       console.log(this.avatar)

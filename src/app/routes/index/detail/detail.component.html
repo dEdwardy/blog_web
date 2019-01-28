@@ -11,19 +11,31 @@
   <div class="messages">
     <div class="sendComment">
       <div style="text-align: left"><h4>发表您的留言</h4></div>
-      <div>
-        <img src="{{ pathFilter(avatar)}}" alt="avatar" width="100px" height="100px" style="border-radius: 50%"/>
-        <textarea placeholder="请输入不超过200字" [(ngModel)]="text" style="overflow-y:scroll;margin-left: 30px;"></textarea>
+      <div style="overflow: hidden">
+        <img src="{{ pathFilter(avatar)}}" alt="avatar" width="100px" height="100px" style="border-radius: 50%;"/>
+        <textarea placeholder="请输入不超过200字" [(ngModel)]="text" style="overflow-y:scroll;margin-left: 20px"></textarea>
       </div>
       <div style="text-align:right">
         <button nz-button style="margin-right: 10%" (click)="handleSend()">发表</button>
       </div>
     </div>
     <div class="comments">
-      <div class="comment" *ngFor="let comment of item.comment" style="clear: both;overflow: hidden;">
+      <div class="comment" *ngFor="let comment of item.comment;let i = index" style="clear: both;overflow: hidden;">
           <img src="{{ pathFilter(comment.avatar)}}" alt="avatar" style="border-radius: 50%;width: 60px;height:60px;float: left"/>
-          <div style="display: inline-block;margin-left: 60px">
-              <pre>{{comment.content}}</pre>
+          <div style="margin-left: 80px">
+              <div style="margin-bottom: 6px"><span>{{ comment.name }}</span> <span style="float: right;">第{{i+1}}楼</span></div>
+              <pre>{{ comment.content }}</pre>
+              <div style="font-size: 12px">评论日期：
+                <span>{{ comment.create_date| date: "yyyy-MM-dd HH:mm:ss" }}</span>
+                <a 
+                *ngIf="comment.create_by===localUserEmail()"
+                href="javascript:void(0);" 
+                style="color:red;float: right;font-size: 12px"
+                nz-popconfirm nzTitle="确定删除此条评论?"
+                (nzOnConfirm)="handleDelete(comment)"
+                nzPlacement="rightBottom"
+                >删除</a>
+              </div>
           </div>
       </div>
     </div>

@@ -42,4 +42,10 @@ export class ArtilceService {
       .then(res => res)
       .catch(e => console.log(e));
   }
+  public deleteComment(params) {
+    return this.baseService
+      .query("delete", baseUrl + "/articles/deleteComment",params)
+      .then(res => res)
+      .catch(e => console.log(e));
+  }
 }
