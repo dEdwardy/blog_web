@@ -1,0 +1,37 @@
+<nz-table #basicTable [nzData]="dataSet">
+  <thead>
+    <tr>
+      <th>UserName</th>
+      <th>Email</th>
+      <th>Password</th>
+      <th>Power</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of dataSet">
+      <td>{{ data.username }}</td>
+      <td>{{ data.email }}</td>
+      <td>{{ data.password }}</td>
+      <td>{{ data.authority }}</td>
+      <td>
+        <span *ngIf="data.authority == 0">
+          <a (click)="updateUser(data._id, 2)">禁止评论</a>
+          <nz-divider nzType="vertical"></nz-divider>
+        </span>
+        <span *ngIf="data.authority === 2">
+          <a (click)="updateUser(data._id, 3)">恢复评论</a>
+          <nz-divider nzType="vertical"></nz-divider>
+        </span>
+        <span *ngIf="data.authority !== 1">
+          <a (click)="updateUser(data._id, 3)">停用</a>
+          <nz-divider nzType="vertical"></nz-divider>
+        </span>
+        <span *ngIf="data.authority === 3">
+          <a (click)="updateUser(data._id, 0)">启用</a>
+          <nz-divider nzType="vertical"></nz-divider>
+        </span>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

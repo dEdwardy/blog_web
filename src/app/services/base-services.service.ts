@@ -18,6 +18,9 @@ export class BaseServicesService {
       case 'delete':{
         return this.http.delete(url,params).toPromise();
       }
+      case 'put':{
+        return this.http.put(url,params).toPromise();
+      }
       default:{
         
       }

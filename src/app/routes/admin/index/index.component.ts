@@ -16,6 +16,9 @@ export class IndexComponent implements OnInit {
       case 'get':
         this.router.navigate(['admin/index/get']);
         break;
+      case 'user-manage':
+        this.router.navigate(['admin/index/user-manage']);
+        break;
       default:
         break;
     }
