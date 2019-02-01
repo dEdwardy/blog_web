@@ -1,11 +1,13 @@
 <div class="all" ngCloak>
   <header>
     <div class="header-top">
-      <nz-carousel [nzAutoPlaySpeed]="5000" nzAutoPlay style="height:400px">
+      <div style="height: 400px" class="background">
+      </div>
+      <!-- <nz-carousel [nzAutoPlaySpeed]="5000" nzAutoPlay style="height:400px">
         <div nz-carousel-content *ngFor="let img of array" [ngStyle]="{ 'background-image': 'url('+img+')' }">
           <img src="{{ img }}" alt="banner" class="banner" style="width:100vw;height:400px">
         </div>
-      </nz-carousel>
+      </nz-carousel> -->
     </div>
     <div class="header-bottom">
       <ul class="ul">
@@ -42,7 +44,7 @@
       [nzLg]="{ span: 11, offset: 4 }"
       style="padding: 10px 10px 20px 10px;"
     > 
-      <router-outlet ngCloak></router-outlet>
+      <router-outlet></router-outlet>
     </div>
     <div
       nz-col

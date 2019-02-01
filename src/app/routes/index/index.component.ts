@@ -10,6 +10,7 @@ import { NzMessageService, NzModalService } from "ng-zorro-antd";
 import { Router } from "@angular/router";
 import { ArtilceService } from "../../services/article/artilce.service";
 import { Utils } from "src/app/common/helper/utils-helper";
+import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
 
 @Component({
   selector: "mpr-index",
@@ -38,6 +39,7 @@ export class IndexComponent implements OnInit {
   loading: Boolean = false;
   status: number;
   emailRes: any;
+  backgrounImage:string ='../../../assets/images/banner/1.jpg';
   array = [
     '../../../assets/images/banner/1.jpg',
     '../../../assets/images/banner/2.jpg',

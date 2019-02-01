@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule,HttpClientJsonpModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgZorroAntdModule, NZ_I18N, zh_CN } from 'ng-zorro-antd';
 import { registerLocaleData } from '@angular/common';
 import { AppRoutingModule } from './/app-routing.module';
@@ -19,6 +19,7 @@ import { StrLengthPipe } from './common/pipe/str-length.pipe';
 import { PathPipe } from './common/pipe/path.pipe';
 import { QuillModule } from 'ngx-quill'
 import { CanAuthProvide } from './services/guard/can-auth.provide';
+import { JsonpModule } from "@angular/http";
 
 registerLocaleData(zh);
 
@@ -32,8 +33,6 @@ registerLocaleData(zh);
     NotFoundComponent,
     StrLengthPipe,
     PathPipe
-    // DetailComponent,
-    // ArticleComponent
   ],
   imports: [
     BrowserModule,
@@ -41,9 +40,11 @@ registerLocaleData(zh);
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    HttpClientJsonpModule,
     NgZorroAntdModule,
     AppRoutingModule,
-    QuillModule
+    QuillModule,
+    JsonpModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: zh_CN },

@@ -12,6 +12,9 @@ export class BaseServicesService {
       case 'get':{
         return this.http.get(url, {params} ).toPromise();
       }
+      case 'getJsonp':{
+        return this.http.jsonp(url,params).toPromise();
+      }
       case 'post':{
         return this.http.post(url,params).toPromise();;
       }
