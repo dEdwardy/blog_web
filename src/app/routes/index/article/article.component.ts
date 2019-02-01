@@ -126,7 +126,7 @@ export class ArticleComponent implements OnInit {
       this.node = e.target;
       this.nodeName = this.node.nodeName;
       if(this.nodeName==='LI'||this.nodeName==='li'){
-        // if(window.location.pathname!=='/index')this.router.navigate(['./index'])
+        if(window.location.pathname!=='/index')this.router.navigate(['./index'])
         //搜索框置空
         this.keyWords.value='';
         this.keywords = this.node.innerHTML;
