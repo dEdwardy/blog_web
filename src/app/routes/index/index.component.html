@@ -3,37 +3,33 @@
     <div class="header-top">
       <div style="height: 400px" class="background">
       </div>
-      <!-- <nz-carousel [nzAutoPlaySpeed]="5000" nzAutoPlay style="height:400px">
-        <div nz-carousel-content *ngFor="let img of array" [ngStyle]="{ 'background-image': 'url('+img+')' }">
-          <img src="{{ img }}" alt="banner" class="banner" style="width:100vw;height:400px">
-        </div>
-      </nz-carousel> -->
     </div>
     <div class="header-bottom">
-      <ul class="ul">
-        <li class="category">全部文章</li>
-        <li class="category">Html & Css</li>
-        <li class="category">Javascript</li>
-        <li class="category">React</li>
-        <li class="category">Vue</li>
-        <li class="category">Angular</li>
-        <li>
-          <span>
-            <input 
-            nz-input 
-            placeholder="请输入关键字"
-            id="keyWords"
-            style="width: 176px;">
-            <span 
-            class="search"
-            style="position: relative;left: -20px;cursor: pointer;"
-            >
-              <i nz-icon type="search" theme="outline"></i>
-            </span>
-          </span>
-        </li>
-      </ul>
-      
+      <div nz-row> 
+          <ul class="ul">
+              <li class="category">全部文章</li>
+              <li class="category">Html & Css</li>
+              <li class="category">Javascript</li>
+              <li class="category">React</li>
+              <li class="category">Vue</li>
+              <li class="category">Angular</li>
+              <li>
+                <span>
+                  <input 
+                  nz-input 
+                  placeholder="请输入关键字"
+                  id="keyWords"
+                  style="width: 176px;">
+                  <span 
+                  class="search"
+                  style="position: relative;left: -20px;cursor: pointer;"
+                  >
+                    <i nz-icon type="search" theme="outline"></i>
+                  </span>
+                </span>
+              </li>
+            </ul>
+      </div>
     </div>
   </header>
   <div nz-row style="padding-top: 10px" class="main" style="min-height:724px">
