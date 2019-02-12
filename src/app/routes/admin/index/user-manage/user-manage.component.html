@@ -1,6 +1,7 @@
-<nz-table #basicTable [nzData]="dataSet">
+<!-- <nz-table #basicTable [nzData]="dataSet">
   <thead>
     <tr>
+      <th nzShowExpand></th>
       <th>UserName</th>
       <th>Email</th>
       <th>Password</th>
@@ -33,5 +34,74 @@
         </span>
       </td>
     </tr>
+  </tbody>
+</nz-table> -->
+<nz-table #nestedTable [nzData]="dataSet" [nzPageSize]="10">
+  <thead>
+    <tr>
+      <th nzShowExpand></th>
+      <th>用户名</th>
+      <th>邮箱</th>
+      <th>密码</th>
+      <th>权限</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-template ngFor let-data [ngForOf]="nestedTable.data">
+      <tr>
+        <td nzShowExpand [(nzExpand)]="data.lastLoginTime"></td>
+        <td>{{ data.username }}</td>
+        <td>{{ data.email }}</td>
+        <td>{{ data.password }}</td>
+        <td>{{ data.authority }}</td>
+        <td>
+          <span *ngIf="data.authority == 0">
+            <a (click)="updateUser(data._id, 2)">禁止评论</a>
+            <nz-divider nzType="vertical"></nz-divider>
+          </span>
+          <span *ngIf="data.authority === 2">
+            <a (click)="updateUser(data._id, 3)">恢复评论</a>
+            <nz-divider nzType="vertical"></nz-divider>
+          </span>
+          <span *ngIf="data.authority !== 1">
+            <a (click)="updateUser(data._id, 3)">停用</a>
+            <nz-divider nzType="vertical"></nz-divider>
+          </span>
+          <span *ngIf="data.authority === 3">
+            <a (click)="updateUser(data._id, 0)">启用</a>
+            <nz-divider nzType="vertical"></nz-divider>
+          </span>
+        </td>
+      </tr>
+      <tr [nzExpand]="!data.lastLoginTime">
+        <td></td>
+        <td colspan="7">
+          <nz-table
+            #innerTable
+            [nzData]="data.lastLoginTime"
+            nzSize="small"
+            [nzShowPagination]="false"
+          >
+            <thead>
+              <tr>
+                <th>User-Agent</th>
+                <th>Ip地址</th>
+                <th>时间</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of innerTable.data">
+                <td>
+                  {{ data.user_agent }}
+                </td>
+                <td>{{ data.ip }}</td>
+                <td>{{ data.date | date: "yyyy-MM-dd HH:mm:ss" }}</td>
+              </tr>
+            </tbody>
+          </nz-table>
+        </td>
+      </tr>
+    </ng-template>
   </tbody>
 </nz-table>

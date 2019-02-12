@@ -9,12 +9,20 @@ import { NzMessageService } from 'ng-zorro-antd'
   styleUrls: ['./user-manage.component.scss']
 })
 export class UserManageComponent implements OnInit {
+  expand = false;
+  nzTable = [];
+  nestedTableData = [];
+  innerTableData = [];
   updateData:any;
   dataSet:any;
   constructor(private loginService:LoginService, public message:NzMessageService) { }
   async loadUserData(){
     this.dataSet = await this.loginService.getUser();
     console.log(this.dataSet)
+    this.nzTable = this.dataSet;
+    for (let i = 0; i < this.dataSet.length; ++i) {
+      this.innerTableData.push(this.dataSet[i].lastLoginTime);
+    }
   }
   async updateUser(id,power:number){
     this.updateData = await this.loginService.updateUser({id,power});
