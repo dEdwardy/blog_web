@@ -74,6 +74,7 @@ export class FirstComponent implements OnInit {
   initSelect = () => {
     const children = [];
     const label = [
+      "其他",
       "微服务",
       "区块链",
       "超级账本",

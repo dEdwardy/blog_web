@@ -13,6 +13,7 @@
               <li class="category">React</li>
               <li class="category">Vue</li>
               <li class="category">Angular</li>
+              <li class="category">其他</li>
               <li>
                 <span>
                   <input 
@@ -256,11 +257,11 @@
       <div *ngIf="isLogin()">
         <img src="{{ avatar | path }}" alt="avatar" width="130" height="130" style="border-radius: 50%"/>
         <div style="padding: 12px 0"><span>欢迎：</span>{{ this.username }}</div>
-        <div style="padding: 4px 0">光临我的博客~</div>
-        <button nz-button nzType="primary" *ngIf="getAuthority()==1" (click)="routeTo('admin/index')">进入管理界面</button>
-        <button nz-button nzType="danger" (click)="loginOut()">
-          <i nz-icon type="logout" theme="outline"></i>Login Out
-        </button>
+        <div style="padding: 4px 0">光临我的博客~</div><br>
+        <a nz-button nzType="primary" *ngIf="getAuthority()==1" (click)="routeTo('admin/index')">进入管理界面</a><br><br>
+        <a nz-button nzType="danger" (click)="loginOut()" style="width: 116px">
+          <i nz-icon type="logout" theme="outline"></i>退出
+        </a>
       </div>
     </div>
   </div>
