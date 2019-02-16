@@ -107,7 +107,6 @@ export class ArticleComponent implements OnInit {
       this.node = e.target;
       this.nodeName = this.node.nodeName;
       if(this.nodeName==='LI'||this.nodeName==='li'){
-        that.router.navigate(['./index'])
         let keyWords = this.node.innerHTML
         this.keywords = keyWords;
         if(keyWords==='全部文章')keyWords='';
