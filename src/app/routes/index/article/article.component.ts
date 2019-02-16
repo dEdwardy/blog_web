@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ArtilceService }  from '../../../services/article/artilce.service'
-import { Router } from '@angular/router'
+import { Router, ActivatedRoute } from '@angular/router'
 import { pathHead } from '../../../config'
 @Component({
   selector: 'mpr-article',
@@ -8,27 +8,48 @@ import { pathHead } from '../../../config'
   styleUrls: ['./article.component.scss']
 })
 export class ArticleComponent implements OnInit {
+  
   node:any;
   nodeName:any;
   totalSearch:any;
   resDataSearch;
+  //搜索框的关键词
   keyWords:any;
+  //ul关键词
   keywords:string = '';
   data: any;
   resData:any;
   total: any;
   pageNumber: number;
-  constructor(public articleService:ArtilceService, public router:Router) { }
+  search:Boolean = false;
+  currentPage:number = 1;
+  constructor(public articleService:ArtilceService, public router:Router, private route:ActivatedRoute) { }
   handleClick(item) {
     //console.log(item)
     this.router.navigate(['./index/detail'], { queryParams: { '_id': item._id } });
 
   }
-  async loadData(page: number = 1,params = {}) {
+  async loadPageNumber(params={keyWords:this.keywords||''}) {
+    if(this.search)params={keyWords:this.keyWords.value||''}
+    try {
+      this.total = await this.articleService.getArticle({ ...params,count: 1 });
+      this.pageNumber = this.total.length;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  async loadData(
+    page: number = 1,
+    params= { keyWords: this.keywords||''}
+    ) {
+    console.log(params)
+    this.currentPage = page;
+    console.log(this.currentPage)
+    if(this.search)params={keyWords:this.keyWords.value}
     try {
       this.resData = await this.articleService.getArticle({
         ...params,
-        skip: (page - 1) * 10,
+        skip: (this.currentPage - 1) * 10,
         limit: 10
       });
       this.data = this.resData.data;
@@ -58,7 +79,8 @@ export class ArticleComponent implements OnInit {
       console.log(err)
     }
     if(this.keywords=='全部文章')this.keywords=''
-    this.loadData(1,{keyWords:this.keywords});
+    if(this.search)this.keywords = this.keyWords.value;
+    this.loadData(this.currentPage,{keyWords:this.keywords});
   }
   async handleClickLike(item){
     console.log(item);
@@ -71,15 +93,8 @@ export class ArticleComponent implements OnInit {
       console.log(err)
     }
     if(this.keywords=='全部文章')this.keywords=''
-    this.loadData(1,{keyWords:this.keywords});
-  }
-  async loadPageNumber(params={}) {
-    try {
-      this.total = await this.articleService.getArticle({ ...params,count: 1 });
-      this.pageNumber = this.total.length;
-    } catch (err) {
-      console.log(err);
-    }
+    if(this.search)this.keywords = this.keyWords.value;
+    this.loadData(this.currentPage,{keyWords:this.keywords});
   }
   limitLength(value,number=40){
     if(typeof value==='string'){
@@ -87,18 +102,22 @@ export class ArticleComponent implements OnInit {
     }
   }
   ngOnInit() {
+    this.keywords = this.route.snapshot.queryParamMap.get('keyWords')||'';
     this.loadPageNumber();
     this.loadData();
   }
   ngAfterViewInit(){
-    let that = this;
     this.keyWords = document.querySelector('#keyWords');
     let btn = document.querySelector('.search');
     btn.addEventListener('click',() => {
+      this.search = true;
+      this.router.navigate(['./index'],{queryParams:{keyWords:this.keyWords.value}})
       this.handleClickSearch(this.keyWords.value)
     })
     this.keyWords.addEventListener('keyup',(e) => {
       if(e.keyCode===13){
+        this.search = true;
+        this.router.navigate(['./index'],{queryParams:{keyWords:this.keyWords.value}})
         this.handleClickSearch(this.keyWords.value)
       }
     })
@@ -107,12 +126,15 @@ export class ArticleComponent implements OnInit {
       this.node = e.target;
       this.nodeName = this.node.nodeName;
       if(this.nodeName==='LI'||this.nodeName==='li'){
-        let keyWords = this.node.innerHTML
-        this.keywords = keyWords;
-        if(keyWords==='全部文章')keyWords='';
-        this.loadPageNumber({ keyWords })
-        this.loadData(1,{ keyWords })
-        console.log(this.node.innerHTML)
+        console.log(window.location.pathname)
+        if(window.location.pathname!=='/index')this.router.navigate(['./index'])
+        //搜索框置空
+        this.keyWords.value='';
+        this.keywords = this.node.innerHTML;
+        if(this.keywords==='全部文章')this.keywords='';
+        this.router.navigate(['./index'],{queryParams:{keyWords:this.keywords}})
+        this.loadPageNumber({ keyWords:this.keywords})
+        this.loadData(1,{ keyWords:this.keywords })
       }
 
     })
@@ -130,8 +152,10 @@ export class ArticleComponent implements OnInit {
   }
   async handleClickSearch(keyWords) {
     try {
+      if(this.search)this.currentPage=1;
        await this.loadPageNumber({keyWords})
-       await this.loadData(1, { keyWords })
+       await this.loadData(this.currentPage, { keyWords })
+       this.search = false;
     } catch (error) {
       console.log(error);
     }

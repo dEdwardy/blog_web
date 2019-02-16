@@ -1,7 +1,12 @@
 .all {
   text-align: center;
+  font-family: 'Microsoft YaHei';
   header {
     .header-top {
+      & .background{
+        background-image: url('../../../assets/images/banner/1.png');
+        background-size: 100% 100%;
+      }
       h3 {
         color: #fff;
       }

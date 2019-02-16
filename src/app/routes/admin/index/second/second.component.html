@@ -7,9 +7,9 @@
     <ng-template #item let-item>
       <nz-list-item  [nzExtra]="extra" style="height:60px;" (click)="handleClick(item)" style="cursor: pointer;height: 64px">
         <nz-list-item-meta
-          [nzTitle]="nzTitle" >
+          [nzTitle]="nzTitle">
           <ng-template #nzTitle>
-            <div style="text-align:center;margin-top: 12px"> 
+            <div style="text-align:left;margin-top: 12px;margin-left: 20px"> 
              <a href="#">{{item.title}}</a>
             </div>
           </ng-template>

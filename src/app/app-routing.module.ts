@@ -23,7 +23,9 @@ const routes: Routes = [
     component: AdminIndex,
     children: [
       { path: 'add', loadChildren: './routes/admin/index/first/first.module#FirstModule' },
-      { path: 'get', loadChildren: './routes/admin/index/second/second.module#SecondModule'}
+      { path: 'get', loadChildren: './routes/admin/index/second/second.module#SecondModule'},
+      { path: 'user-manage', loadChildren: './routes/admin/index/user-manage/user-manage.module#UserManageModule'},
+
     ]
   },
   { path:'details', component: DetailsComponent },

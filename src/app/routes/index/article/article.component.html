@@ -4,7 +4,7 @@
         [nzRenderItem]="item"
         [nzPagination]="pagination"
         ngCloak
-      >
+      > 
         <ng-template #item let-item style="border-radius: 6px">
           <div
             row
@@ -12,29 +12,36 @@
             class="item"
           >
             <div nz-col [nzSpan]="7" style="padding:2%">
-              <!-- <img
-                alt="logo"
-                src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
-                style="padding:4% 0;width: 100%;"
-              /> -->
               <img src="{{ srcFilter(item.image_url) }}"  style="padding:4% 0;width: 100%;" alt="图片">
             </div>
             <div nz-col [nzSpan]="14" [nzPush]="1" style="text-align:left">
-              <div nz-row style="margin:22px 4px 2px 4px;font-size: 16px ">
+              <div 
+              nz-row 
+              (click)="handleClick(item)"
+              style="margin:22px 4px 2px 4px;font-size: 16px;cursor: pointer;">
                 <b>{{ item.title }}</b>
               </div>
               <div nz-row class="content" style="margin:10px 4px" [innerHTML]="limitLength(item.content,50)" >
-                <!-- {{  limitLength(item.content,50) }} -->
               </div>
               <div
                 nz-row
                 style="padding:6px 4px;border-top:1px dashed gray;color: rgb(170, 169, 169);margin-top:8px"
               >
-                {{ item.create_date | date: "yyyy-MM-dd HH:mm:ss" }}
+                <span>发布日期：</span>{{ item.create_date | date: "yyyy-MM-dd HH:mm:ss" }}
               </div>
-              <div ng-row>
-                  <span
-                  nz-col nzSpan="16"
+              <div ng-row 
+              style="padding:0 4px;">
+              <span 
+              nz-col 
+              nzSpan="16"
+              >
+                <span>标签：</span>
+                <span>
+                  {{item.label}}
+                </span>
+              </span>
+              <span
+                  nz-col nzSpan="8"
                 >
                   <span nzTitle="踩" nzPlacement="bottom" nz-tooltip>
                     <i nz-icon type="dislike" theme="outline" class="dislike" (click)="handleClickDislike(item)"></i>
@@ -45,13 +52,6 @@
                       <span class="likeNumber">{{ item.like }}</span> 
                     </span>
                 </span>
-                <span
-                nz-col nzSpan="8"
-                (click)="handleClick(item)"
-                style="text-align: right;cursor: pointer;padding: 4px 2px"
-              >
-                阅读全文&gt;&gt;
-              </span>
               </div>
             </div>
           </div>
@@ -60,7 +60,7 @@
         <ng-template #pagination>
           <nz-pagination
             *ngIf="data"
-            [nzPageIndex]="1"
+            [nzPageIndex]="currentPage"
             [nzTotal]="pageNumber"
             (nzPageIndexChange)="loadData($event)"
             nzShowQuickJumper
