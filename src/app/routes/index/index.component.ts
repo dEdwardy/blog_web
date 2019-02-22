@@ -58,6 +58,7 @@ export class IndexComponent implements OnInit {
     if (localStorage.getItem("token")) localStorage.removeItem("token");
     if (Utils.getCookie("userinfo")) Utils.delCookie("userinfo");
     this.validateLoginForm.reset();
+    this.checkAuthority();
   }
   isLogin(): Boolean {
     if (Utils.getCookie("userinfo")) {
@@ -234,17 +235,6 @@ export class IndexComponent implements OnInit {
     //console.log(item)
     this.router.navigate(["details"], { queryParams: { _id: item._id } });
   }
-  async loadPageNumber(params = {}) {
-    try {
-      this.total = await this.articleService.getArticle({
-        ...params,
-        count: 1
-      });
-      this.pageNumber = this.total.length;
-    } catch (error) {
-      console.log(error);
-    }
-  }
   async loadData(page: number = 1, params = {}) {
     try {
       this.resData = await this.articleService.getArticle({
@@ -252,6 +242,7 @@ export class IndexComponent implements OnInit {
         skip: (page - 1) * 10,
         limit: 10
       });
+      this.pageNumber = this.resData.length;
       this.data = this.resData.data;
       this.data.map(item => {
         item.label = item.label.split(",").join(" & ");
@@ -280,7 +271,6 @@ export class IndexComponent implements OnInit {
   
   ngOnInit(): void {
     this.checkAuthority();
-    this.loadPageNumber();
     this.loadData();
     this.validateLoginForm = this.fb.group({
       email: [null, [Validators.required]],

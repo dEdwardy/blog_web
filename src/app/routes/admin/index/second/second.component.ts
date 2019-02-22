@@ -18,7 +18,6 @@ export class SecondComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    this.loadPageNumber();
     this.loadData();
   }
 
@@ -32,7 +31,6 @@ export class SecondComponent implements OnInit {
           this.deleteInfo = await this.articleService.deleteArticle({ params: { id } });
           if (this.deleteInfo.n === 1) {               //n 受影响的条数(即删除的条数)
             this.message.success('删除成功！')
-            this.loadPageNumber();
             this.loadData();
           } else {
             this.message.error('删除失败！')
@@ -48,17 +46,10 @@ export class SecondComponent implements OnInit {
     this.router.navigate(['details'], { queryParams: { '_id': item._id } });
 
   }
-  async loadPageNumber() {
-    try {
-      this.total = await this.articleService.getArticle({ count: 1 })
-      this.pageNumber = this.total.length;
-    } catch (error) {
-      console.log(error)
-    }
-  }
   async loadData(page: number = 1) {
     try {
       this.resData = await this.articleService.getArticle({ skip: (page - 1) * 10, limit: 10 });
+      this.pageNumber = this.resData.length;
       this.data = this.resData.data;
       this.data.data.map(item => {
         item.label = item.label.split(',').join(' & ');
