@@ -207,32 +207,7 @@ export class IndexComponent implements OnInit {
     private articleService: ArtilceService,
     public modalService: NzModalService
   ) {}
-  // handleClickDelete(e, id) {
-  //   e.stopPropagation();
-  //   this.modalService.confirm({
-  //     nzTitle: "Are you sure to delete this item?",
-  //     nzContent: "Are you sure to delete this item?",
-  //     nzOnOk: async () => {
-  //       try {
-  //         this.deleteInfo = await this.articleService.deleteArticle({
-  //           params: { id }
-  //         });
-  //         if (this.deleteInfo.n === 1) {
-  //           //n 受影响的条数(即删除的条数)
-  //           this.message.success("删除成功！");
-  //           this.loadPageNumber();
-  //           this.loadData();
-  //         } else {
-  //           this.message.error("删除失败！");
-  //         }
-  //       } catch (error) {
-  //         console.log(error);
-  //       }
-  //     }
-  //   });
-  // }
   handleClick(item) {
-    //console.log(item)
     this.router.navigate(["details"], { queryParams: { _id: item._id } });
   }
   async loadData(page: number = 1, params = {}) {
@@ -271,7 +246,7 @@ export class IndexComponent implements OnInit {
   
   ngOnInit(): void {
     this.checkAuthority();
-    this.loadData();
+    // this.loadData();
     this.validateLoginForm = this.fb.group({
       email: [null, [Validators.required]],
       password: [null, [Validators.required]],

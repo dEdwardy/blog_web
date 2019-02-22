@@ -29,15 +29,6 @@ export class ArticleComponent implements OnInit {
     this.router.navigate(['./index/detail'], { queryParams: { '_id': item._id } });
 
   }
-  async loadPageNumber(params={keyWords:this.keywords||''}) {
-    if(this.search)params={keyWords:this.keyWords.value||''}
-    try {
-      this.total = await this.articleService.getArticle({ ...params,count: 1 });
-      this.pageNumber = this.total.length;
-    } catch (err) {
-      console.log(err);
-    }
-  }
   async loadData(
     page: number = 1,
     params= { keyWords: this.keywords||''}
@@ -52,6 +43,7 @@ export class ArticleComponent implements OnInit {
         skip: (this.currentPage - 1) * 10,
         limit: 10
       });
+      this.pageNumber = this.resData.length;
       this.data = this.resData.data;
       if(this.data){
         this.data.map(item => {
@@ -103,7 +95,6 @@ export class ArticleComponent implements OnInit {
   }
   ngOnInit() {
     this.keywords = this.route.snapshot.queryParamMap.get('keyWords')||'';
-    this.loadPageNumber();
     this.loadData();
   }
   ngAfterViewInit(){
@@ -133,7 +124,6 @@ export class ArticleComponent implements OnInit {
         this.keywords = this.node.innerHTML;
         if(this.keywords==='全部文章')this.keywords='';
         this.router.navigate(['./index'],{queryParams:{keyWords:this.keywords}})
-        this.loadPageNumber({ keyWords:this.keywords})
         this.loadData(1,{ keyWords:this.keywords })
       }
 
@@ -153,7 +143,6 @@ export class ArticleComponent implements OnInit {
   async handleClickSearch(keyWords) {
     try {
       if(this.search)this.currentPage=1;
-       await this.loadPageNumber({keyWords})
        await this.loadData(this.currentPage, { keyWords })
        this.search = false;
     } catch (error) {
