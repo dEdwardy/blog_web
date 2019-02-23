@@ -51,7 +51,7 @@ export class SecondComponent implements OnInit {
       this.resData = await this.articleService.getArticle({ skip: (page - 1) * 10, limit: 10 });
       this.pageNumber = this.resData.length;
       this.data = this.resData.data;
-      this.data.data.map(item => {
+      this.data.map(item => {
         item.label = item.label.split(',').join(' & ');
       })
     } catch (error) {

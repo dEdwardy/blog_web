@@ -7,12 +7,10 @@ import { HttpClientModule,HttpClientJsonpModule, HTTP_INTERCEPTORS } from '@angu
 import { NgZorroAntdModule, NZ_I18N, zh_CN } from 'ng-zorro-antd';
 import { registerLocaleData } from '@angular/common';
 import { AppRoutingModule } from './/app-routing.module';
-import { LoginComponent } from './routes/login/login.component';
 import { LoginService } from './services/login/login.service';
 import { IndexComponent as AdminIndex } from './routes/admin/index/index.component';
 import { BasicAuthInterceptor } from './services/guard/basicAuth.interceptor'
 import zh from '@angular/common/locales/zh';
-import { DetailsComponent } from './routes/admin/details/details.component';
 import { NotFoundComponent } from './routes/not-found/not-found.component';
 import { IndexComponent } from './routes/index/index.component';
 import { StrLengthPipe } from './common/pipe/str-length.pipe';
@@ -26,10 +24,8 @@ registerLocaleData(zh);
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
     AdminIndex,
     IndexComponent,
-    DetailsComponent,
     NotFoundComponent,
     StrLengthPipe,
     PathPipe

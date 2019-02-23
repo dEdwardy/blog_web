@@ -1,15 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { pathHead } from '../../../config'
 import { ArtilceService } from '../../../services/article/artilce.service'
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  ValidationErrors,
-  Validators
-} from '@angular/forms';
-import { Observable, Observer } from 'rxjs';
-import { NzMessageService } from 'ng-zorro-antd'
+
 @Component({
   selector: 'mpr-details',
   templateUrl: './details.component.html',
@@ -34,6 +27,9 @@ export class DetailsComponent implements OnInit {
     } catch (error) {
       console.log(error)
     }
+  }
+  pathFilter(value:string){
+    return pathHead+value
   }
   ngOnInit() {
     this.loadDetail()
