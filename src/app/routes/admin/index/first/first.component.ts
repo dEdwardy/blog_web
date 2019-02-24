@@ -34,7 +34,7 @@ export class FirstComponent implements OnInit {
       [{ font: [] }],
       [{ align: [] }],
       ["clean"],                       // remove formatting button
-      ["link", "image"]      // link and image, video
+      ["link", "image","video"]      // link and image, video
     ]
   };
 
