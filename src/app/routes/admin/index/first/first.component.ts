@@ -7,8 +7,10 @@ import {
   Validators
 } from "@angular/forms";
 import { Observable, Observer } from "rxjs";
+import { ActivatedRoute } from '@angular/router';
 import { NzMessageService, UploadFile } from "ng-zorro-antd";
 import { ArtilceService } from "../../../../services/article/artilce.service";
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: "mpr-first",
@@ -16,6 +18,12 @@ import { ArtilceService } from "../../../../services/article/artilce.service";
   styleUrls: ["./first.component.scss"]
 })
 export class FirstComponent implements OnInit {
+  updateData:any;
+  title:string = '';
+  label:string = '';
+  content:string = '';
+  id:any;
+  item:any;
   fileList = [];
   previewImage = "";
   previewVisible = false;
@@ -46,6 +54,31 @@ export class FirstComponent implements OnInit {
     this.previewImage = file.url || file.thumbUrl;
     this.previewVisible = true;
   };
+  updateArticle = async (e: MouseEvent,value) => {
+    console.log(this.content)
+    e.preventDefault()
+    for (const key in this.validateForm.controls) {
+      this.validateForm.controls[key].markAsDirty();
+      this.validateForm.controls[key].updateValueAndValidity();
+    }
+    let { title, content, label } = value;
+    let params ={
+      id:this.id,
+      title,
+      label,
+      content
+    }
+    try {
+      this.updateData = await this.articleService.updateArtilce(params);
+      if(this.updateData.success){
+        this.message.success('修改成功')
+      }else{
+        this.message.warning('修改失败')
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
   submitForm = async ($event, value) => {
     $event.preventDefault();
     for (const key in this.validateForm.controls) {
@@ -130,7 +163,23 @@ export class FirstComponent implements OnInit {
       this.validateForm.controls[key].updateValueAndValidity();
     }
   }
-
+  async loadDetail() {
+    this.id = this.route.snapshot.queryParamMap.get('_id');
+    try {
+      this.data = await this.articleService.getArticle({ _id: this.id })
+      console.log(this.data.data[0])
+      this.item = this.data.data[0];
+      this.title = this.item.title;
+      this.label = this.item.label;
+      let arr = this.label.split(',')
+       this.listOfSelectedValue=arr;
+      console.log(this.listOfOption)
+      console.log(arr)
+      this.content = this.item.content;
+    } catch (error) {
+      console.log(error)
+    }
+  }
   titleAsyncValidator = (control: FormControl) =>
     Observable.create((observer: Observer<ValidationErrors>) => {
       setTimeout(() => {
@@ -144,11 +193,16 @@ export class FirstComponent implements OnInit {
     });
   ngOnInit() {
     this.initSelect();
+    if(this.route.snapshot.queryParamMap.get('_id')){
+      this.loadDetail()
+    }
   }
   constructor(
     private fb: FormBuilder,
     private articleService: ArtilceService,
-    public message: NzMessageService
+    public message: NzMessageService,
+    private route: ActivatedRoute,
+    private sanitizer: DomSanitizer
   ) {
     this.validateForm = this.fb.group({
       title: ["", [Validators.required], [this.titleAsyncValidator]],

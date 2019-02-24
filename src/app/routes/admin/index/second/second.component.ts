@@ -43,7 +43,7 @@ export class SecondComponent implements OnInit {
   }
   handleClick(item) {
     //console.log(item)
-    this.router.navigate(['details'], { queryParams: { '_id': item._id } });
+    this.router.navigate(['admin/index/add'], { queryParams: { '_id': item._id } });
 
   }
   async loadData(page: number = 1) {

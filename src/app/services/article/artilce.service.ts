@@ -12,6 +12,12 @@ export class ArtilceService {
       .then(res => res)
       .catch(e => console.log(e));
   }
+  public updateArtilce(params, headers: any = {}) {
+    return this.baseService
+      .query("put", baseUrl + "/articles/updateArticle", params, headers)
+      .then(res => res)
+      .catch(e => console.log(e));
+  }
   public getArticle(params = {}) {
     return this.baseService
       .query("get", baseUrl + "/articles/getArticles", params)

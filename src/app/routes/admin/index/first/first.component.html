@@ -2,7 +2,7 @@
   <nz-form-item nz-row>
     <nz-form-label [nzSpan]="3" nzRequired>Title</nz-form-label>
     <nz-form-control [nzSpan]="14" nzHasFeedback>
-      <input nz-input formControlName="title" nzPlaceHolder="title" >
+      <input nz-input formControlName="title" [(ngModel)]="title" nzPlaceHolder="title" >
       <nz-form-explain *ngIf="validateForm.get('title').dirty && validateForm.get('title').errors || validateForm.get('title').pending ">
         <ng-container *ngIf="validateForm.get('title').hasError('required')">
           Please input your article title!
@@ -26,15 +26,6 @@
     </nz-form-control>
   </nz-form-item>
     <div class="clearfix">
-        <!-- <nz-upload
-          nzAction="https://jsonplaceholder.typicode.com/posts/"
-          nzListType="picture-card"
-          [(nzFileList)]="fileList"
-          [nzShowButton]="fileList.length<1"
-          [nzPreview]="handlePreview">
-            <i nz-icon type="plus"></i>
-            <div class="ant-upload-text">Upload</div>
-        </nz-upload> -->
         <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null" (nzOnCancel)="previewVisible=false">
           <ng-template #modalContent>
             <img [src]="previewImage" [ngStyle]="{ 'width': '100%' }" />
@@ -44,7 +35,7 @@
   <nz-form-item class="clearfix">
     <nz-form-label [nzSpan]="3" nzRequired>Cotent</nz-form-label>
     <nz-form-control [nzSpan]="18">
-      <quill-editor [modules]="config" style="height: 600px"  formControlName="content"></quill-editor>
+      <quill-editor [modules]="config" [style]="{'min-height': '450px'}"  formControlName="content" [(ngModel)]="content"></quill-editor>
       <nz-form-explain *ngIf="validateForm.get('content').dirty&&validateForm.get('content').hasError('required')">请输入内容。</nz-form-explain>
     </nz-form-control>
   </nz-form-item>
@@ -52,7 +43,8 @@
 
     <nz-form-control [nzOffset]="3" [nzSpan]="10" style="text-align: right">
       <button nz-button (click)="resetForm($event)">Reset</button>
-      <button nz-button nzType="primary" [disabled]="!validateForm.valid">Submit</button>
+      <button nz-button nzType="primary" *ngIf="!id" [disabled]="!validateForm.valid">Submit</button>
+      <button nz-button (click)="updateArticle($event,validateForm.value)" nzType="primary" *ngIf="id" [disabled]="!validateForm.valid">Update</button>
     </nz-form-control>
   </nz-form-item>
 </form>

@@ -4,6 +4,7 @@ import { ArtilceService } from '../../../services/article/artilce.service'
 import { pathHead } from 'src/app/config';
 import { Utils } from '../../../common/helper/utils-helper'
 import { NzMessageService } from 'ng-zorro-antd'
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'mpr-details',
@@ -11,12 +12,19 @@ import { NzMessageService } from 'ng-zorro-antd'
   styleUrls: ['./detail.component.scss']
 })
 export class DetailComponent implements OnInit {
+  content:any;
   comment:any;
   text:string = '';
   commentData: any;
   data: any;
   item :any={ };
-  constructor(private route: ActivatedRoute, private articleService: ArtilceService, public message:NzMessageService, private router:Router) {
+  constructor(
+    private route: ActivatedRoute,
+    private articleService: ArtilceService,
+    public message:NzMessageService,
+    private router:Router,
+    private sanitizer: DomSanitizer
+    ) {
 
   }
   showTextarea:Boolean = false;
@@ -32,6 +40,7 @@ export class DetailComponent implements OnInit {
       this.data = await this.articleService.getArticle({ _id: this.id })
       console.log(this.data.data[0])
       this.item = this.data.data[0];
+      this.content =  this.sanitizer.bypassSecurityTrustHtml(this.item.content)
     } catch (error) {
       console.log(error)
     }
