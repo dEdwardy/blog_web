@@ -1,13 +1,13 @@
 <div class="all">
   <div class="title">{{ item.title }}</div>
-  <div [innerHTML]="content" style="text-indent: 30px;padding: 12px 12px 0 12px;text-align: left"></div>
-  <div
+  <div [innerHTML]="content" style="text-indent: 30px;padding: 12px 12px 0 12px;text-align: left;overflow: hidden;"></div>
+  <!-- <div
     *ngFor="let img of item.image_url"
     style="width: 100%;margin:20px"
     [ngStyle]="{ display: item.image_url.length === 0 ? 'none' : 'block' }"
   >
     <img src="{{ pathFilter(img) }}" alt="图片" width="80%" />
-  </div>
+  </div> -->
   <div class="messages">
     <div class="sendComment">
       <div style="text-align: left"><h4>发表您的留言</h4></div>

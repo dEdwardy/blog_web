@@ -89,8 +89,6 @@ export class FirstComponent implements OnInit {
     let { title, content, label } = value;
     let token = localStorage.getItem("token");
     console.log(content)
-    let img = content.match(/\<img(\s)(\S*)\/\>/g); 
-    console.log(img);
     try {
       this.data = await this.articleService.writeArtilce({ title, content, label });
       if (this.data.success === 1) {
