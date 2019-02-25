@@ -6,6 +6,11 @@ import { environment } from './environments/environment';
 
 if (environment.production) {
   enableProdMode();
+  //处理console
+  window.console.log = () => {}
+  window.console.info = () => {}
+  window.console.warn = () => {}
+  window.console.error = () => {}
 }
 
 platformBrowserDynamic().bootstrapModule(AppModule)

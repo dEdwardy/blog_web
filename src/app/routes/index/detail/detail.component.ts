@@ -12,6 +12,9 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./detail.component.scss']
 })
 export class DetailComponent implements OnInit {
+  keyWords:any;
+  keywords:any;
+  node:any;
   content:any;
   comment:any;
   text:string = '';
@@ -25,7 +28,7 @@ export class DetailComponent implements OnInit {
     private router:Router,
     private sanitizer: DomSanitizer
     ) {
-
+      this.handleClickUl = this.handleClickUl.bind(this);
   }
   showTextarea:Boolean = false;
   avatar:any;
@@ -94,6 +97,30 @@ export class DetailComponent implements OnInit {
   }
   localUserEmail(){
     if(Utils.getCookie('userinfo')) return JSON.parse(Utils.getCookie('userinfo')).email
+  }
+  handleClickUl(e){
+    console.log(this)
+    this.keyWords = document.querySelector('#keyWords');
+    this.node = e.target;
+    // this.nodeName = this.node.nodeName;
+    if(e.target.nodeName==='LI'||e.target.nodeName==='li'){
+      console.log(window.location.pathname)
+      if(window.location.pathname!=='/index')this.router.navigate(['./index'])
+      //搜索框置空
+      this.keyWords.value='';
+      this.keywords = this.node.innerHTML;
+      if(this.keywords==='全部文章')this.keywords='';
+      this.router.navigate(['./index'],{queryParams:{keyWords:this.keywords}})
+    }
+
+  }
+  ngAfterViewInit(){
+    let ul = document.getElementsByClassName('ul')[0];
+    ul.addEventListener('click',this.handleClickUl,false)
+  }
+  ngOnDestroy(){
+    let ul = document.getElementsByClassName('ul')[0];
+    ul.removeEventListener('click',this.handleClickUl,false)
   }
   ngOnInit() {
     this.loadDetail();
