@@ -33,9 +33,9 @@ export class BasicAuthInterceptor implements HttpInterceptor {
       catchError((err: HttpErrorResponse) => {
         switch (err.status) {
           case 401:
-            this.message.warning("当前身份已过期，请重新登录！");
             Utils.delCookie('userinfo');
             localStorage.clear();
+            this.message.warning("当前身份已过期，请重新登录！");
             setTimeout(() => {
               this.router.navigate(["/index"]);
             }, 2000);
@@ -53,6 +53,7 @@ export class BasicAuthInterceptor implements HttpInterceptor {
           default:
             break;
         }
+        console.log('5555')
         return throwError(err);
       })
     );
