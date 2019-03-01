@@ -66,3 +66,8 @@
 ::ng-deep a {
   text-decoration: underline;
 }
+@media screen and(max-width:600px){
+  .sendComment textarea{
+    width: 85% !important;
+  }
+}

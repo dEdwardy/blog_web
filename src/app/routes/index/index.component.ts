@@ -10,7 +10,7 @@ import { NzMessageService, NzModalService } from "ng-zorro-antd";
 import { Router } from "@angular/router";
 import { ArtilceService } from "../../services/article/artilce.service";
 import { Utils } from "src/app/common/helper/utils-helper";
-import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
+import { NzIconService} from 'ng-zorro-antd'
 
 @Component({
   selector: "mpr-index",
@@ -18,6 +18,10 @@ import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
   styleUrls: ["./index.component.scss"]
 })
 export class IndexComponent implements OnInit {
+  visible:Boolean = false;
+  flag:Boolean = false;
+  location:string = window.location.pathname; 
+  open:Boolean=false;
   authority: Number = 0;
   authorityRes: any;
   regRes: any = {};
@@ -29,12 +33,12 @@ export class IndexComponent implements OnInit {
   login = {
     active: true,
     name: "登录",
-    icon: "apple"
+    icon: "user"
   };
   reg = {
     active: false,
     name: "注册",
-    icon: "android"
+    icon: "user-add"
   };
   loading: Boolean = false;
   status: number;
@@ -55,6 +59,7 @@ export class IndexComponent implements OnInit {
   keywords: string;
   loginOut() {
     this.authority = null;
+    Utils.delCookie("userinfo");
     if (localStorage.getItem("token")) localStorage.removeItem("token");
     if (Utils.getCookie("userinfo")) Utils.delCookie("userinfo");
     this.validateLoginForm.reset();
@@ -205,7 +210,8 @@ export class IndexComponent implements OnInit {
     private loginService: LoginService,
     public message: NzMessageService,
     private articleService: ArtilceService,
-    public modalService: NzModalService
+    public modalService: NzModalService,
+    public iconService:NzIconService
   ) {}
   handleClick(item) {
     this.router.navigate(["details"], { queryParams: { _id: item._id } });
@@ -242,11 +248,45 @@ export class IndexComponent implements OnInit {
       console.log(error);
     }
   }
-  
-  
+  openMenu(){
+    this.open =! this.open;
+    this.flag = true;
+    let ul =document.getElementsByClassName('ul')[0];
+    console.log(ul)
+  }
+  back(){
+    if (window.location.pathname !== '/index') this.router.navigate(['./index'])
+  }
+  ngAfterViewInit(){
+    let ul =document.getElementsByClassName('ul')[0];
+    ul.addEventListener('click',this.handleClickUl,false);
+  }
+  ngOnDestroy() {
+    let ul =document.getElementsByClassName('ul')[0];
+    ul.removeEventListener('click',this.handleClickUl,false);
+  }
+  handleClickUl(e){
+    if (e.target.nodeName === 'LI' || e.target.nodeName === 'li') {
+      console.log(window.location.pathname)
+      //关闭菜单
+     this.open = false;
+     console.log(this.open)
+      
+    }
+  }
+  openUserInfo():void{
+    this.visible = true;
+  }
+  close(): void {
+    this.visible = false;
+  }
   ngOnInit(): void {
+    this.iconService.fetchFromIconfont({
+      scriptUrl: 'https://at.alicdn.com/t/font_1066420_c2rpta8v7if.js'
+    });
+    console.log(this.flag&&this.open)
+    console.log(this.location!== '/index')
     this.checkAuthority();
-    // this.loadData();
     this.validateLoginForm = this.fb.group({
       email: [null, [Validators.required]],
       password: [null, [Validators.required]],

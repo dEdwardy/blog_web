@@ -1,3 +1,6 @@
+.rows{
+  margin:22px 4px 2px 4px;font-size: 16px;cursor: pointer;
+}
 .item{
   background-color: #fff;
   &:hover{
@@ -24,4 +27,22 @@
 }
 button {
   margin: 12px;
+}
+@media screen and(max-width:600px){
+  .rows{
+   margin:10px 4px 2px 4px !important;
+  }
+  .label,.date{
+    font-size: 13px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+  }
+  .likeOrnot{
+    display: block;
+    text-align: right;
+  }
+  ::ng-deep .ant-pagination{
+    display: none !important;
+  }
 }
