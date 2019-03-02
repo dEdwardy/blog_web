@@ -18,6 +18,7 @@ import { NzIconService} from 'ng-zorro-antd'
   styleUrls: ["./index.component.scss"]
 })
 export class IndexComponent implements OnInit {
+  menuFlag:Boolean = true;
   visible:Boolean = false;
   flag:Boolean = false;
   location:string = window.location.pathname; 
@@ -212,7 +213,8 @@ export class IndexComponent implements OnInit {
     private articleService: ArtilceService,
     public modalService: NzModalService,
     public iconService:NzIconService
-  ) {}
+  ) {
+  }
   handleClick(item) {
     this.router.navigate(["details"], { queryParams: { _id: item._id } });
   }
@@ -249,6 +251,7 @@ export class IndexComponent implements OnInit {
     }
   }
   openMenu(){
+    this.menuFlag = true;
     this.open =! this.open;
     this.flag = true;
     let ul =document.getElementsByClassName('ul')[0];
@@ -257,6 +260,7 @@ export class IndexComponent implements OnInit {
   back(){
     if (window.location.pathname !== '/index') this.router.navigate(['./index'])
   }
+  
   ngAfterViewInit(){
     let ul =document.getElementsByClassName('ul')[0];
     ul.addEventListener('click',this.handleClickUl,false);
@@ -266,16 +270,24 @@ export class IndexComponent implements OnInit {
     ul.removeEventListener('click',this.handleClickUl,false);
   }
   handleClickUl(e){
+    console.log(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)?'移动端':'PC')
     if (e.target.nodeName === 'LI' || e.target.nodeName === 'li') {
       console.log(window.location.pathname)
       //关闭菜单
      this.open = false;
      console.log(this.open)
-      
+      if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)){
+        console.log(this.menuFlag)
+        this.menuFlag = false;
+      }
     }
   }
   openUserInfo():void{
     this.visible = true;
+  }
+  hideUl(){
+    console.log('Click Ul')
+    this.flag= !this.flag;
   }
   close(): void {
     this.visible = false;
@@ -304,4 +316,8 @@ export class IndexComponent implements OnInit {
     console.log(this.getAuthority());
   }
   
+}
+
+interface dom{
+  style?:string
 }

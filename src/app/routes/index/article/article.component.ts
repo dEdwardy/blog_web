@@ -9,8 +9,8 @@ import { NzMessageService } from 'ng-zorro-antd'
   styleUrls: ['./article.component.scss']
 })
 export class ArticleComponent implements OnInit {
-  flag=false;
-  lastDate:any= null;
+  lastDate: any = null;
+  lastDate2: any = null;
   date: any;
   startX: any;
   startY: any;
@@ -64,7 +64,8 @@ export class ArticleComponent implements OnInit {
       this.pageNumber = this.resData.length;
       let { data } = this.resData;
       console.log(data)
-      this.data = [...this.data, ...data]
+      this.data = data;
+      console.log(this.data)
       if (this.data) {
         this.data.map(item => {
           item.label = item.label.split(",").join(" & ");
@@ -92,7 +93,7 @@ export class ArticleComponent implements OnInit {
     }
     if (this.keywords == '全部文章') this.keywords = ''
     if (this.search) this.keywords = this.keyWords.value;
-    this.loadData(this.currentPage, { keyWords: this.keywords });
+    await this.loadData(this.currentPage, { keyWords: this.keywords });
   }
   async handleClickLike(item) {
     console.log(item);
@@ -106,7 +107,7 @@ export class ArticleComponent implements OnInit {
     }
     if (this.keywords == '全部文章') this.keywords = ''
     if (this.search) this.keywords = this.keyWords.value;
-    this.loadData(this.currentPage, { keyWords: this.keywords });
+    await this.loadData(this.currentPage, { keyWords: this.keywords });
   }
   limitLength(value, number = 40) {
     if (typeof value === 'string') {
@@ -130,6 +131,7 @@ export class ArticleComponent implements OnInit {
       this.keywords = this.node.innerHTML;
       if (this.keywords === '全部文章') this.keywords = '';
       this.router.navigate(['./index'], { queryParams: { keyWords: this.keywords } })
+      this.data = [];
       this.loadData(1, { keyWords: this.keywords })
     }
 
@@ -160,13 +162,13 @@ export class ArticleComponent implements OnInit {
       return result;
     }
     var angle = this.getAngle(angx, angy);
-    if (angle >= -135 && angle <= -45) {
+    if (Math.abs(angy) > Math.abs(angx) && angy < 0) {
       result = 1;
-    } else if (angle > 45 && angle < 135) {
+    } else if (Math.abs(angy)>Math.abs(angx)&&angy>0) {
       result = 2;
-    } else if ((angle >= 135 && angle <= 180) || (angle >= -180 && angle < -135)) {
+    } else if (Math.abs(angx) > Math.abs(angy) && angx < 0) {
       result = 3;
-    } else if (angle >= -45 && angle <= 45) {
+    } else if (Math.abs(angx) > Math.abs(angy) && angx > 0) {
       result = 4;
     }
     return result;
@@ -187,29 +189,57 @@ export class ArticleComponent implements OnInit {
         break;
       case 1:
         console.log("上拉！")
-        if (this.data.length === this.pageNumber) {
-          var date = new Date().getTime();
-          if (this.lastDate||this.flag) {
-            console.log(date)
-            console.log(this.lastDate)
-            if (date - this.lastDate <= 3000) {
-              console.log('未超过3s')
-              return;
-            }
+        //若最后一项不在可视区则跳出
+        let itemsLength = document.getElementsByClassName('item').length;
+        let lastItem = document.getElementsByClassName('item')[itemsLength - 1];
+        if(!this.checkItemISInsight(lastItem))return;
+        var date = new Date().getTime();
+        if (this.lastDate) {
+          console.log(date)
+          console.log(this.lastDate)
+          if (date - this.lastDate <= 3000) {
+            console.log('未超过3s')
+            return;
           }
-          this.lastDate = date;
-          this.flag = true;
+        }
+        this.lastDate = date;
+        if (this.data.length < 10 || (this.currentPage + 1) * 10 < this.pageNumber) {
           this.message.warning('我可是有底线的')
         } else {
           console.log('数据加载中')
           this.currentPage = this.currentPage + 1;
           const id = this.message.loading('加载中...', { nzDuration: 0 }).messageId;
           await this.loadData(this.currentPage, { keyWords: this.keywords });
+          let header = document.getElementsByTagName('header')[0];
+          let height = header.scrollHeight;
+          window.scrollTo({
+            top: height,
+            left: 0,
+            behavior: 'auto'
+          });
           this.message.remove(id);
         }
         break;
       case 2:
         console.log("向下！")
+        //若第一项不在可视区则跳出
+        let firstItem = document.getElementsByClassName('item')[0];
+        if(!this.checkItemISInsight(firstItem))return;
+        var date = new Date().getTime();
+        if (this.lastDate2) {
+          console.log(date)
+          console.log(this.lastDate2)
+          if (date - this.lastDate2 <= 3000) {
+            console.log('未超过3s')
+            return;
+          } else {
+            this.currentPage = 1;
+            const id = this.message.loading('加载中...', { nzDuration: 0 }).messageId;
+            await this.loadData(this.currentPage, { keyWords: this.keywords });
+            this.message.remove(id);
+          }
+        }
+        this.lastDate2 = date;
         break;
       case 3:
         console.log("向左！")
@@ -222,24 +252,50 @@ export class ArticleComponent implements OnInit {
     }
   }
   ngAfterViewInit() {
-    document.addEventListener('touchstart', this.handleTouchStart, false);
-    document.addEventListener('touchend', this.handleTouchEnd, false);
+    let list = document.getElementsByClassName('list')[0]
+    list.addEventListener('touchstart', this.handleTouchStart, false);
+    list.addEventListener('touchend', this.handleTouchEnd, false);
     this.keyWords = document.querySelector('#keyWords');
     let btn = document.querySelector('.search');
     btn.addEventListener('click', this.handleClickBtn, false)
     this.keyWords.addEventListener('keyup', this.handleClickKeywords, false)
     let ul = document.getElementsByClassName('ul')[0];
-    ul.addEventListener('click', this.handleClickUl, false)
+    ul.addEventListener('click', this.handleClickUl, true)
 
   }
   ngOnDestroy() {
-    document.removeEventListener('touchstart', this.handleTouchStart, false);
-    document.removeEventListener('touchend', this.handleTouchEnd, false);
+    let list = document.getElementsByClassName('list')[0]
+    list.removeEventListener('touchstart', this.handleTouchStart, false);
+    list.removeEventListener('touchend', this.handleTouchEnd, false);
     let ul = document.getElementsByClassName('ul')[0];
-    ul.removeEventListener('click', this.handleClickUl, false)
+    ul.removeEventListener('click', this.handleClickUl, true)
     let btn = document.querySelector('.search');
     btn.removeEventListener('click', this.handleClickBtn, false)
     this.keyWords.removeEventListener('keyup', this.handleClickKeywords, false)
+  }
+  /**
+   *判断最后一个Item是否Insight,若在可视区返回true反之false
+   *
+   * @memberof ArticleComponent
+   */
+  checkItemISInsight(element): Boolean {
+    if (this.getElementTopLeft(element).top + element.clientHeight > window.pageYOffset && window.pageYOffset + window.innerHeight > this.getElementTopLeft(element).top) {
+      console.log('可见')
+      return true
+    } else {
+      console.log('不可见')
+      return false;
+    }
+  }
+  getElementTopLeft(obj) {
+    var top = 0;
+    var left = 0;
+    while (obj) {
+      top += obj.offsetTop;
+      left += obj.offsetLeft;
+      obj = obj.offsetParent;
+    }
+    return { top: top, left: left };
   }
   async handleClickSearch(keyWords) {
     try {

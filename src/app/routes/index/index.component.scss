@@ -113,11 +113,10 @@ button {
    top:-120vw;
    z-index: 999;
    height: auto;
-   background: #000;
-   opacity: 0.3;
    margin:0;
    padding: 0;
    & li {
+     background: rgba(96, 96, 96, 0.3);
      display: block;
      text-align: center;
      margin:0 !important;
@@ -126,6 +125,12 @@ button {
      height: 7.1428571429vw;
      line-height: 7.1428571429vw;
      color: #fff; 
+     border: 0 !important;
+     &:hover,&:active{
+       background: rgba(0, 0, 0, 0.5);
+       color: #fff !important;
+     }
+     
    }
    & li:last-child{
      display: none;
@@ -145,4 +150,7 @@ to {top:-50vw;}
   }
   .slideUp{
     animation:slideUp  1s ease-out forwards !important;
+  }
+  ::ng-deep .hide{
+    height:0 !important;
   }

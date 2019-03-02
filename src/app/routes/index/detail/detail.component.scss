@@ -37,6 +37,10 @@
       margin:0 12px;
     }
   }
+::ng-deep iframe.ql-video{
+    display: table;
+    margin: 0 auto;
+}
 ::ng-deep .ql-size-large {
     font-size: 1.5em;
 }
