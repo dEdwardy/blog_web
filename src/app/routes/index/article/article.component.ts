@@ -44,6 +44,7 @@ export class ArticleComponent implements OnInit {
   }
   handleClick(item) {
     //console.log(item)
+    window.scroll(0,0);
     this.router.navigate(['./index/detail'], { queryParams: { '_id': item._id } });
 
   }
@@ -210,14 +211,10 @@ export class ArticleComponent implements OnInit {
           this.currentPage = this.currentPage + 1;
           const id = this.message.loading('加载中...', { nzDuration: 0 }).messageId;
           await this.loadData(this.currentPage, { keyWords: this.keywords });
+          this.message.remove(id);
           let header = document.getElementsByTagName('header')[0];
           let height = header.scrollHeight;
-          window.scrollTo({
-            top: height,
-            left: 0,
-            behavior: 'auto'
-          });
-          this.message.remove(id);
+          window.scrollTo(0,height);
         }
         break;
       case 2:
@@ -252,9 +249,9 @@ export class ArticleComponent implements OnInit {
     }
   }
   ngAfterViewInit() {
-    let list = document.getElementsByClassName('list')[0]
-    list.addEventListener('touchstart', this.handleTouchStart, false);
-    list.addEventListener('touchend', this.handleTouchEnd, false);
+    // let list = document.getElementsByClassName('list')[0]
+    document.addEventListener('touchstart', this.handleTouchStart, false);
+    document.addEventListener('touchend', this.handleTouchEnd, false);
     this.keyWords = document.querySelector('#keyWords');
     let btn = document.querySelector('.search');
     btn.addEventListener('click', this.handleClickBtn, false)
@@ -264,9 +261,9 @@ export class ArticleComponent implements OnInit {
 
   }
   ngOnDestroy() {
-    let list = document.getElementsByClassName('list')[0]
-    list.removeEventListener('touchstart', this.handleTouchStart, false);
-    list.removeEventListener('touchend', this.handleTouchEnd, false);
+    // let list = document.getElementsByClassName('list')[0]
+    document.removeEventListener('touchstart', this.handleTouchStart, false);
+    document.removeEventListener('touchend', this.handleTouchEnd, false);
     let ul = document.getElementsByClassName('ul')[0];
     ul.removeEventListener('click', this.handleClickUl, true)
     let btn = document.querySelector('.search');
