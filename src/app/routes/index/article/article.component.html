@@ -1,76 +1,43 @@
-<nz-list
-        [nzDataSource]="data"
-        [nzItemLayout]="'vertical'"
-        [nzRenderItem]="item"
-        [nzPagination]="pagination"
-        class="list"
-        *ngIf="data.length!==0"
-      > 
-        <ng-template #item let-item style="border-radius: 6px">
-          <div
-            row
-            style="margin:10px 0;clear: both;overflow: hidden;padding: 1% 0"
-            class="item"
-          >
-            <div nz-col [nzSpan]="7" style="padding:2%">
-              <img src="{{ srcFilter(item.image_url) }}"  style="padding:4% 0;width: 100%;" alt="图片">
-            </div>
-            <div nz-col [nzSpan]="14" [nzPush]="1" style="text-align:left">
-              <div 
-              nz-row 
-              (click)="handleClick(item)"
-              class="rows">
-                <b>{{ item.title }}</b>
-              </div>
-              <div nz-row class="content" id="content" style="margin:10px 4px" [innerHTML]="limitLength(item.content,40)" >
-              </div>
-              <div
-                nz-row
-                style="padding:6px 4px;border-top:1px dashed gray;color: rgb(170, 169, 169);margin-top:8px"
-                class="date"
-              >
-                <span>发布日期：</span>{{ item.create_date | date: "yyyy-MM-dd HH:mm:ss" }}
-              </div>
-              <div ng-row 
-              style="padding:0 4px;">
-              <span 
-              nz-col 
-              [nzLg]="{ span: 16}"
-              [nzSm]="{ span: 24}"
-              class="label"
-              >
-                <span>标签：</span>
-                <span>
-                  {{item.label}}
-                </span>
-              </span>
-              <span
-                  nz-col 
-                  [nzLg]="{ span: 8 }"
-                  [nzMd]="{ span: 24 }"
-                  class="likeOrnot"
-                >
-                  <span nzTitle="踩" nzPlacement="bottom" nz-tooltip>
-                    <i nz-icon type="dislike" theme="outline" class="dislike" (click)="handleClickDislike(item)"></i>
-                    <span class="dislikeNumber">{{ item.dislike }}</span>
-                  </span>
-                  <span nzTitle="赞" nzPlacement="bottom" nz-tooltip>
-                      <i nz-icon type="like" theme="outline"  class="like" (click)="handleClickLike(item)"></i> 
-                      <span class="likeNumber">{{ item.like }}</span> 
-                    </span>
-                </span>
-              </div>
-            </div>
-          </div>
-        </ng-template>
-        <div *ngIf="!data" style="margin-top: 20px">暂无数据</div>
-        <ng-template #pagination class="pagination">
-          <nz-pagination
-            *ngIf="data"
-            [nzPageIndex]="currentPage"
-            [nzTotal]="pageNumber"
-            (nzPageIndexChange)="loadData($event)"
-            nzShowQuickJumper
-          ></nz-pagination>
-        </ng-template>
-      </nz-list>
+<nz-list [nzDataSource]="data" [nzItemLayout]="'vertical'" [nzRenderItem]="item" [nzPagination]="pagination"
+  class="list" *ngIf="data.length!==0">
+  <ng-template #item let-item style="border-radius: 6px">
+    <div row style="margin:10px 0;clear: both;overflow: hidden;padding: 1% 0" class="item">
+      <div nz-col [nzSpan]="7" style="padding:2%">
+        <img src="{{ srcFilter(item.image_url) }}" style="padding:4% 0;width: 100%;" alt="图片">
+      </div>
+      <div nz-col [nzSpan]="14" [nzPush]="1" style="text-align:left">
+        <div nz-row (click)="handleClick(item)" class="rows">
+          <b>{{ item.title }}</b>
+        </div>
+        <div nz-row class="content" id="content" style="margin:10px 4px" [innerHTML]="limitLength(item.content,40)">
+        </div>
+        <div nz-row style="padding:6px 4px;border-top:1px dashed gray;color: rgb(170, 169, 169);margin-top:8px"
+          class="date">
+          <span>发布日期：</span>{{ item.create_date | date: "yyyy-MM-dd HH:mm:ss" }}
+        </div>
+        <div ng-row style="padding:0 4px;">
+          <span nz-col [nzLg]="{ span: 16}" [nzSm]="{ span: 24}" class="label">
+            <span>标签：</span>
+            <span>
+              {{item.label}}
+            </span>
+          </span>
+          <span nz-col [nzLg]="{ span: 8 }" [nzMd]="{ span: 24 }" class="likeOrnot">
+            <span nzTitle="踩" nzPlacement="bottom" nz-tooltip>
+              <i nz-icon type="dislike" theme="outline" class="dislike" (click)="handleClickDislike(item)"></i>
+              <span class="dislikeNumber">{{ item.dislike }}</span>
+            </span>
+            <span nzTitle="赞" nzPlacement="bottom" nz-tooltip>
+              <i nz-icon type="like" theme="outline" class="like" (click)="handleClickLike(item)"></i>
+              <span class="likeNumber">{{ item.like }}</span>
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <div *ngIf="!data" style="margin-top: 20px">暂无数据</div>
+  <ng-template #pagination class="pagination">
+    <nz-pagination *ngIf="data" [nzPageIndex]="currentPage" [nzTotal]="pageNumber"
+      (nzPageIndexChange)="loadData($event)" nzShowQuickJumper></nz-pagination>
+  </ng-template>
