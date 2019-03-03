@@ -44,7 +44,7 @@ export class ArticleComponent implements OnInit {
   }
   handleClick(item) {
     //console.log(item)
-    window.scroll(0,0);
+    window.scroll(0, 0);
     this.router.navigate(['./index/detail'], { queryParams: { '_id': item._id } });
 
   }
@@ -165,7 +165,7 @@ export class ArticleComponent implements OnInit {
     var angle = this.getAngle(angx, angy);
     if (Math.abs(angy) > Math.abs(angx) && angy < 0) {
       result = 1;
-    } else if (Math.abs(angy)>Math.abs(angx)&&angy>0) {
+    } else if (Math.abs(angy) > Math.abs(angx) && angy > 0) {
       result = 2;
     } else if (Math.abs(angx) > Math.abs(angy) && angx < 0) {
       result = 3;
@@ -193,12 +193,13 @@ export class ArticleComponent implements OnInit {
         //若最后一项不在可视区则跳出
         let itemsLength = document.getElementsByClassName('item').length;
         let lastItem = document.getElementsByClassName('item')[itemsLength - 1];
-        if(!this.checkItemISInsight(lastItem))return;
+        if (!this.checkItemISInsight(lastItem)) return;
         var date = new Date().getTime();
         if (this.lastDate) {
           console.log(date)
           console.log(this.lastDate)
           if (date - this.lastDate <= 3000) {
+            this.lastDate = date;
             console.log('未超过3s')
             return;
           }
@@ -214,29 +215,29 @@ export class ArticleComponent implements OnInit {
           this.message.remove(id);
           let header = document.getElementsByTagName('header')[0];
           let height = header.scrollHeight;
-          window.scrollTo(0,height);
+          window.scrollTo(0, height);
         }
         break;
       case 2:
         console.log("向下！")
         //若第一项不在可视区则跳出
         let firstItem = document.getElementsByClassName('item')[0];
-        if(!this.checkItemISInsight(firstItem))return;
+        if (!this.checkItemISInsight(firstItem)) return;
         var date = new Date().getTime();
         if (this.lastDate2) {
           console.log(date)
           console.log(this.lastDate2)
           if (date - this.lastDate2 <= 3000) {
             console.log('未超过3s')
+            this.lastDate2 = date;
             return;
-          } else {
-            this.currentPage = 1;
-            const id = this.message.loading('加载中...', { nzDuration: 0 }).messageId;
-            await this.loadData(this.currentPage, { keyWords: this.keywords });
-            this.message.remove(id);
           }
         }
         this.lastDate2 = date;
+        this.currentPage = 1;
+        const id = this.message.loading('加载中...', { nzDuration: 0 }).messageId;
+        await this.loadData(this.currentPage, { keyWords: this.keywords });
+        this.message.remove(id);
         break;
       case 3:
         console.log("向左！")
