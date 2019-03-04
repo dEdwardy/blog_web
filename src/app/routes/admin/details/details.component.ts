@@ -28,6 +28,17 @@ export class DetailsComponent implements OnInit {
       console.log(error)
     }
   }
+  /**
+   *优化ngFor性能(根据indexDOM只重绘了修改和增加的项)
+   *
+   * @param {*} index
+   * @param {*} item
+   * @returns
+   * @memberof DetailsComponent
+   */
+  trackByIndex(index, item){
+    return index;
+  }
   pathFilter(value:string){
     return pathHead+value
   }

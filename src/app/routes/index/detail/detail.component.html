@@ -20,7 +20,7 @@
       </div>
     </div>
     <div class="comments">
-      <div class="comment" *ngFor="let comment of item.comment;let i = index" style="clear: both;overflow: hidden;">
+      <div class="comment" *ngFor="let comment of item.comment;let i = index;trackBy:trackByIndex" style="clear: both;overflow: hidden;">
           <img src="{{ pathFilter(comment.avatar)}}" alt="avatar" style="border-radius: 50%;width: 50px;height:50px;float: left"/>
           <div style="margin-left: 80px">
               <div style="margin-bottom: 6px"><span>{{ comment.name }}</span> <span style="float: right;">第{{i+1}}楼</span></div>

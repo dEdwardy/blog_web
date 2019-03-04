@@ -78,6 +78,18 @@ export class DetailComponent implements OnInit {
     this.loadDetail()
 
   }
+
+  /**
+   *
+   * 优化ngFor性能(根据indexDOM只重绘了修改和增加的项)
+   * @param {*} index
+   * @param {*} item
+   * @returns
+   * @memberof DetailComponent
+   */
+  trackByIndex(index, item){
+    return index;
+  }
   async handleDelete(item){
     try {
       let params = {
