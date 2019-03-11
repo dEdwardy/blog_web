@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router'
 import { IndexComponent as  AdminIndex } from './routes/admin/index/index.component'
-import { NotFoundComponent } from './routes/not-found/not-found.component'
 import { IndexComponent } from './routes/index/index.component'
 import { CanAuthProvide } from './services/guard/can-auth.provide'
 const routes: Routes = [
@@ -27,7 +26,6 @@ const routes: Routes = [
   },
   { path:'details', loadChildren:'./routes/admin/details/details.module#DetailsModule' },
   { path:'reg', children:[{path:'', loadChildren:'./routes/reg/reg.module#RegModule'}] },
-  { path:'notfound', component: NotFoundComponent },
   { path: '**', redirectTo: 'index', pathMatch: 'full' }
 ];
 

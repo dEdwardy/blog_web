@@ -11,7 +11,6 @@ import { LoginService } from './services/login/login.service';
 import { IndexComponent as AdminIndex } from './routes/admin/index/index.component';
 import { BasicAuthInterceptor } from './services/guard/basicAuth.interceptor'
 import zh from '@angular/common/locales/zh';
-import { NotFoundComponent } from './routes/not-found/not-found.component';
 import { IndexComponent } from './routes/index/index.component';
 import { StrLengthPipe } from './common/pipe/str-length.pipe';
 import { PathPipe } from './common/pipe/path.pipe';
@@ -26,7 +25,6 @@ registerLocaleData(zh);
     AppComponent,
     AdminIndex,
     IndexComponent,
-    NotFoundComponent,
     StrLengthPipe,
     PathPipe
   ],
