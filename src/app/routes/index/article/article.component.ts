@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ArtilceService } from '../../../services/article/artilce.service'
-import { Router, ActivatedRoute } from '@angular/router'
-import { pathHead } from '../../../config'
-import { NzMessageService } from 'ng-zorro-antd'
+import { ArtilceService } from '../../../services/article/artilce.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { pathHead } from '../../../config';
+import { NzMessageService } from 'ng-zorro-antd';
 @Component({
   selector: 'mpr-article',
   templateUrl: './article.component.html',

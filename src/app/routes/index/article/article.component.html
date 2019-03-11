@@ -51,11 +51,11 @@
                   class="likeOrnot"
                 >
                   <span nzTitle="踩" nzPlacement="bottom" nz-tooltip>
-                    <i nz-icon type="dislike" theme="outline" class="dislike" (click)="handleClickDislike(item)"></i>
+                    <i nz-icon [iconfont]="'icon-dislike'" class="dislike" (click)="handleClickDislike(item)"></i>
                     <span class="dislikeNumber">{{ item.dislike }}</span>
                   </span>
                   <span nzTitle="赞" nzPlacement="bottom" nz-tooltip>
-                      <i nz-icon type="like" theme="outline"  class="like" (click)="handleClickLike(item)"></i> 
+                      <i nz-icon [iconfont]="'icon-like'"  class="like" (click)="handleClickLike(item)"></i> 
                       <span class="likeNumber">{{ item.like }}</span> 
                     </span>
                 </span>

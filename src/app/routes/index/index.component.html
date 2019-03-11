@@ -15,7 +15,7 @@
             <nz-tabset *ngIf="!isLogin()">
               <nz-tab [nzTitle]="loginTitle">
                 <ng-template #loginTitle>
-                  <i nz-icon [type]="login.icon"></i>{{ login.name }}
+                  <i nz-icon [iconfont]="'icon-denglu'"></i>{{ login.name }}
                 </ng-template>
                 <div class="login">
                   <form nz-form [formGroup]="validateLoginForm" class="login-form"
@@ -57,13 +57,13 @@
                       登录
                     </button>
                   </form>
-                  <ng-template #prefixUser><i nz-icon type="user"></i></ng-template>
-                  <ng-template #prefixLock><i nz-icon type="lock"></i></ng-template>
+                  <ng-template #prefixUser><i nz-icon [iconfont]="'icon-denglu'"></i></ng-template>
+                  <ng-template #prefixLock><i nz-icon [iconfont]="'icon-lock'"></i></ng-template>
                 </div>
               </nz-tab>
               <nz-tab [nzTitle]="regTitle">
                 <ng-template #regTitle>
-                  <i nz-icon [type]="reg.icon"></i>{{ reg.name }}
+                  <i nz-icon [iconfont]="'icon-zhuce1'"></i>{{ reg.name }}
                 </ng-template>
                 <div class="reg">
                   <form nz-form [formGroup]="validateRegForm" (ngSubmit)="submitRegForm(validateRegForm.value)">
@@ -135,9 +135,9 @@
                       注册
                     </button>
                   </form>
-                  <ng-template #prefixUser><i nz-icon type="user"></i></ng-template>
-                  <ng-template #prefixLock><i nz-icon type="lock"></i></ng-template>
-                  <ng-template #prefixEmail><i nz-icon type="mail"></i></ng-template>
+                  <ng-template #prefixUser><i nz-icon [iconfont]="'icon-denglu'"></i></ng-template>
+                  <ng-template #prefixLock><i nz-icon [iconfont]="'icon-lock'"></i></ng-template>
+                  <ng-template #prefixEmail><i nz-icon [iconfont]="'icon-mail'"></i></ng-template>
                 </div>
               </nz-tab>
             </nz-tabset>
@@ -148,7 +148,7 @@
               <a nz-button nzType="primary" *ngIf="getAuthority()==1"
                 (click)="routeTo('admin/index')">进入管理界面</a><br><br>
               <a nz-button nzType="danger" (click)="loginOut()" style="width: 116px">
-                <i nz-icon type="logout" theme="outline"></i>退出
+                <i nz-icon [iconfont]="'icon-tuichu1'"></i>退出
               </a>
             </div>
           </nz-drawer>
@@ -171,7 +171,7 @@
             <span>
               <input nz-input placeholder="请输入关键字" id="keyWords" style="width: 176px;">
               <span class="search" style="position: relative;left: -20px;cursor: pointer;">
-                <i nz-icon type="search" theme="outline"></i>
+                <i nz-icon [iconfont]="'icon-cx'"></i>
               </span>
             </span>
           </li>
@@ -221,17 +221,17 @@
               <nz-form-item>
                 <nz-form-control>
                   <label nz-checkbox formControlName="remember">
-                    <span>Remember me</span>
+                    <span>记住密码</span>
                   </label>
-                  <a class="login-form-forgot" class="login-form-forgot">Forgot password</a>
+                  <a class="login-form-forgot" class="login-form-forgot">忘记密码</a>
                 </nz-form-control>
               </nz-form-item>
               <button nz-button class="login-form-button" [nzType]="'primary'" style="float: right;">
                 登录
               </button>
             </form>
-            <ng-template #prefixUser><i nz-icon type="user"></i></ng-template>
-            <ng-template #prefixLock><i nz-icon type="lock"></i></ng-template>
+            <ng-template #prefixUser><i nz-icon [iconfont]="'icon-denglu'"></i></ng-template>
+            <ng-template #prefixLock><i nz-icon [iconfont]="'icon-lock'"></i></ng-template>
           </div>
         </nz-tab>
         <nz-tab [nzTitle]="regTitle">
@@ -311,9 +311,9 @@
                 注册
               </button>
             </form>
-            <ng-template #prefixUser><i nz-icon type="user"></i></ng-template>
-            <ng-template #prefixLock><i nz-icon type="lock"></i></ng-template>
-            <ng-template #prefixEmail><i nz-icon type="mail"></i></ng-template>
+            <ng-template #prefixUser><i nz-icon [iconfont]="'icon-denglu'"></i></ng-template>
+            <ng-template #prefixLock><i nz-icon [iconfont]="'icon-lock'"></i></ng-template>
+            <ng-template #prefixEmail><i nz-icon [iconfont]="'icon-mail'"></i></ng-template>
           </div>
         </nz-tab>
       </nz-tabset>
@@ -323,7 +323,7 @@
         <div style="padding: 4px 0">光临我的博客~</div><br>
         <a nz-button nzType="primary" *ngIf="getAuthority()==1" (click)="routeTo('admin/index')">进入管理界面</a><br><br>
         <a nz-button nzType="danger" (click)="loginOut()" style="width: 116px">
-          <i nz-icon type="logout" theme="outline"></i>退出
+          <i nz-icon [iconfont]="'icon-tuichu1'"></i>退出
         </a>
       </div>
     </div>

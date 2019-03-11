@@ -10,7 +10,7 @@ import { NzMessageService, NzModalService } from "ng-zorro-antd";
 import { Router } from "@angular/router";
 import { ArtilceService } from "../../services/article/artilce.service";
 import { Utils } from "src/app/common/helper/utils-helper";
-import { NzIconService} from 'ng-zorro-antd'
+import { NzIconService} from 'ng-zorro-antd';
 
 @Component({
   selector: "mpr-index",
@@ -294,7 +294,7 @@ export class IndexComponent implements OnInit {
   }
   ngOnInit(): void {
     this.iconService.fetchFromIconfont({
-      scriptUrl: 'https://at.alicdn.com/t/font_1066420_c2rpta8v7if.js'
+      scriptUrl: 'https://at.alicdn.com/t/font_1066420_1qpb27gav1th.js'
     });
     console.log(this.flag&&this.open)
     console.log(this.location!== '/index')
