@@ -25,7 +25,6 @@ const routes: Routes = [
     ]
   },
   { path:'details', loadChildren:'./routes/admin/details/details.module#DetailsModule' },
-  { path:'reg', children:[{path:'', loadChildren:'./routes/reg/reg.module#RegModule'}] },
   { path: '**', redirectTo: 'index', pathMatch: 'full' }
 ];
 

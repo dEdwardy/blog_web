@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ElementRef} from '@angular/core';
 import { ArtilceService } from '../../../services/article/artilce.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { pathHead } from '../../../config';
@@ -34,7 +34,8 @@ export class ArticleComponent implements OnInit {
     public articleService: ArtilceService,
     public router: Router,
     private route: ActivatedRoute,
-    public message: NzMessageService
+    public message: NzMessageService,
+    private elmRef: ElementRef
   ) {
     this.handleTouchStart = this.handleTouchStart.bind(this);
     this.handleTouchEnd = this.handleTouchEnd.bind(this);
