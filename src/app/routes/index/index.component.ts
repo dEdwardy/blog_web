@@ -61,7 +61,7 @@ export class IndexComponent implements OnInit {
   loginOut() {
     this.authority = null;
     Utils.delCookie("userinfo");
-    if (localStorage.getItem("token")) localStorage.removeItem("token");
+    localStorage.clear();
     if (Utils.getCookie("userinfo")) Utils.delCookie("userinfo");
     this.validateLoginForm.reset();
     this.checkAuthority();
@@ -163,14 +163,23 @@ export class IndexComponent implements OnInit {
         });
         if (this.res.success === 1) {
           window.location.reload();
-          let userinfo = {
+          let userinfo1 = {
+            username: this.res.data.username,
+            avatar: this.res.data.avatar,
+            email: this.res.data.email,
+            like:this.res.data.like,
+            dislike:this.res.data.dislike,
+            authority: this.res.data.authority
+          };
+          let userinfo2 = {
             username: this.res.data.username,
             avatar: this.res.data.avatar,
             email: this.res.data.email,
             authority: this.res.data.authority
           };
           localStorage.setItem("token", this.res.token || "");
-          Utils.setCookie("userinfo", JSON.stringify(userinfo));
+          localStorage.setItem("userinfo", JSON.stringify(userinfo1));
+          Utils.setCookie("userinfo", JSON.stringify(userinfo2));
           if (this.res.data.authority === 1) {
             this.authority = 1;
           }
@@ -294,7 +303,7 @@ export class IndexComponent implements OnInit {
   }
   ngOnInit(): void {
     this.iconService.fetchFromIconfont({
-      scriptUrl: 'https://at.alicdn.com/t/font_1066420_1qpb27gav1th.js'
+      scriptUrl: 'https://at.alicdn.com/t/font_1066420_u183pkhmmp8.js'
     });
     console.log(this.flag&&this.open)
     console.log(this.location!== '/index')

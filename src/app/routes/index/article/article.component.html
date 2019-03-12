@@ -52,12 +52,14 @@
                   class="likeOrnot"
                 >
                   <span nzTitle="踩" nzPlacement="bottom" nz-tooltip>
-                    <i nz-icon [iconfont]="'icon-dislike'" class="dislike" (click)="handleClickDislike(item)"></i>
-                    <span class="dislikeNumber">{{ item.dislike }}</span>
-                  </span>
+                      <i *ngIf="isStrInclude(item._id,userinfo.dislike)" nz-icon [iconfont]="'icon-dislikeActive-copy'" class="dislike" (click)="handleCancelDislike(item)"></i>
+                      <i *ngIf="!isStrInclude(item._id,userinfo.dislike)" nz-icon [iconfont]="'icon-dislike'" class="dislike" (click)="handleClickDislike(item)"></i>
+                      <span class="dislikeNumber">{{ item.dislike.length }}</span>
+                    </span>
                   <span nzTitle="赞" nzPlacement="bottom" nz-tooltip>
-                      <i nz-icon [iconfont]="'icon-like'"  class="like" (click)="handleClickLike(item)"></i> 
-                      <span class="likeNumber">{{ item.like }}</span> 
+                      <i *ngIf="isStrInclude(item._id,userinfo.like)" nz-icon [iconfont]="'icon-likeActive-copy'"  class="like" (click)="handleCancelLike(item)"></i> 
+                      <i *ngIf="!isStrInclude(item._id,userinfo.like)" nz-icon [iconfont]="'icon-like'"  class="like" (click)="handleClickLike(item)"></i> 
+                      <span class="likeNumber">{{ item.like.length }}</span> 
                     </span>
                 </span>
               </div>

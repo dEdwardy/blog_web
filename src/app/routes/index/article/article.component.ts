@@ -3,12 +3,16 @@ import { ArtilceService } from '../../../services/article/artilce.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { pathHead } from '../../../config';
 import { NzMessageService } from 'ng-zorro-antd';
+import { Utils } from 'src/app/common/helper/utils-helper';
 @Component({
   selector: 'mpr-article',
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.scss']
 })
 export class ArticleComponent implements OnInit {
+  likeData;
+  dislikeData;
+  userinfo = JSON.parse(localStorage.getItem('userinfo')) ||{ like:[],dislike:[] };
   lastDate: any = null;
   lastDate2: any = null;
   date: any;
@@ -83,13 +87,56 @@ export class ArticleComponent implements OnInit {
     }
     return pathHead + arr[0];
   }
+  async handleCancelDislike(item){
+    let email = JSON.parse(Utils.getCookie('userinfo')).email;
+    try {
+      this.dislikeData = await this.articleService.cancelDislikeArticle({
+        id:item._id,
+        email
+      })
+      this.userinfo =this.dislikeData[1];
+    } catch (err) {
+      console.log(err)
+    }
+    if (this.keywords == '全部文章') this.keywords = ''
+    if (this.search) this.keywords = this.keyWords.value;
+    await this.loadData(this.currentPage, { keyWords: this.keywords });
+  }
   async handleClickDislike(item) {
+    let token = Utils.getCookie('userinfo')
+    if(!token){
+      this.message.warning('请登录后在操作')
+      return;
+    }
+    let userinfo = JSON.parse(Utils.getCookie('userinfo'));
+    console.log(userinfo)
+    let email = userinfo.email;
+    let username = userinfo.emial;
     console.log(item)
     try {
-      const data = await this.articleService.dislikeArticle({
+      this.dislikeData = await this.articleService.dislikeArticle({
         id: item._id,
-        dislike: 1
+        title:item.title,
+        label:item.label,
+        email,
+        username
       })
+      this.userinfo = this.dislikeData[1];
+    } catch (err) {
+      console.log(err)
+    }
+    if (this.keywords == '全部文章') this.keywords = ''
+    if (this.search) this.keywords = this.keyWords.value;
+    await this.loadData(this.currentPage, { keyWords: this.keywords });
+  }
+  async handleCancelLike(item){
+    let email = JSON.parse(Utils.getCookie('userinfo')).email;
+    try {
+      this.likeData = await this.articleService.cancelLikeArticle({
+        id:item._id,
+        email
+      })
+      this.userinfo = this.likeData[1];
     } catch (err) {
       console.log(err)
     }
@@ -98,12 +145,25 @@ export class ArticleComponent implements OnInit {
     await this.loadData(this.currentPage, { keyWords: this.keywords });
   }
   async handleClickLike(item) {
+    let token = Utils.getCookie('userinfo')
+    if(!token){
+      this.message.warning('请登录后在操作')
+      return;
+    }
+    let userinfo = JSON.parse(Utils.getCookie('userinfo'));
+    console.log(userinfo)
+    let email = userinfo.email;
+    let username = userinfo.emial;
     console.log(item);
     try {
-      const data = await this.articleService.likeArticle({
+      this.likeData = await this.articleService.likeArticle({
         id: item._id,
-        like: 1
+        title:item.title,
+        label:item.label,
+        email,
+        username
       })
+      this.userinfo = this.likeData[1];
     } catch (err) {
       console.log(err)
     }
@@ -119,6 +179,11 @@ export class ArticleComponent implements OnInit {
   ngOnInit() {
     this.keywords = this.route.snapshot.queryParamMap.get('keyWords') || '';
     this.loadData();
+    console.log(this.userinfo)
+  }
+  isStrInclude(str,arr){
+    if(!localStorage.getItem('userinfo'))return false;
+    return arr.includes(str)
   }
   handleClickUl(e) {
     console.log(this)

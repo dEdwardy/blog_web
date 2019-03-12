@@ -36,9 +36,21 @@ export class ArtilceService {
       .then(res => res)
       .catch(e => console.log(e));
   }
+  public cancelLikeArticle(params) {
+    return this.baseService
+      .query("post", baseUrl + "/articles/cancelLikeArticle", params)
+      .then(res => res)
+      .catch(e => console.log(e));
+  }
   public dislikeArticle(params) {
     return this.baseService
       .query("post", baseUrl + "/articles/dislikeArticle", params)
+      .then(res => res)
+      .catch(e => console.log(e));
+  }
+  public cancelDislikeArticle(params) {
+    return this.baseService
+      .query("post", baseUrl + "/articles/cancelDislikeArticle", params)
       .then(res => res)
       .catch(e => console.log(e));
   }
