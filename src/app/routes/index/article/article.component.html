@@ -14,7 +14,8 @@
             class="item"
           >
             <div nz-col [nzSpan]="7" style="padding:2%">
-              <img src="{{ srcFilter(item.image_url) }}"  style="padding:4% 0;width: 100%;" alt="图片">
+              <img [defaultImage]="defaultImage" [lazyLoad]="srcFilter(item.image_url)" [offset]="offset" style="padding:4% 0;width: 100%;" alt="图片">
+              <!-- <img [lazyload]="defaultImage"> -->
             </div>
             <div nz-col [nzSpan]="14" [nzPush]="1" style="text-align:left">
               <div 

@@ -12,6 +12,7 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./detail.component.scss']
 })
 export class DetailComponent implements OnInit {
+  offset:number = 100;
   keyWords:any;
   keywords:any;
   node:any;

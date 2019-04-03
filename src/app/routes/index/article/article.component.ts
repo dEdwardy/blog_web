@@ -10,6 +10,8 @@ import { Utils } from 'src/app/common/helper/utils-helper';
   styleUrls: ['./article.component.scss']
 })
 export class ArticleComponent implements OnInit {
+  offset:number = 100;
+  defaultImage='../../../../assets/images/loading.gif';
   likeData;
   dislikeData;
   userinfo = JSON.parse(localStorage.getItem('userinfo')) ||{ like:[],dislike:[] };

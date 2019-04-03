@@ -16,6 +16,7 @@ import { StrLengthPipe } from './common/pipe/str-length.pipe';
 import { PathPipe } from './common/pipe/path.pipe';
 import { QuillModule } from 'ngx-quill'
 import { CanAuthProvide } from './services/guard/can-auth.provide';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 registerLocaleData(zh);
 
@@ -36,7 +37,8 @@ registerLocaleData(zh);
     HttpClientJsonpModule,
     NgZorroAntdModule,
     AppRoutingModule,
-    QuillModule
+    QuillModule,
+    LazyLoadImageModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: zh_CN },
