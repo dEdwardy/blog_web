@@ -122,7 +122,7 @@ export class DetailComponent implements OnInit {
       //搜索框置空
       this.keyWords.value='';
       this.keywords = this.node.innerHTML;
-      if(this.keywords==='全部文章')this.keywords='';
+      if (this.keywords.indexOf('全部') >-1) this.keywords = ''
       this.router.navigate(['./index'],{queryParams:{keyWords:this.keywords}})
     }
 

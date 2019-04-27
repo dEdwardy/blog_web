@@ -100,7 +100,7 @@ export class ArticleComponent implements OnInit {
     } catch (err) {
       console.log(err)
     }
-    if (this.keywords == '全部文章') this.keywords = ''
+    if (this.keywords.indexOf('全部') >-1) this.keywords = ''
     if (this.search) this.keywords = this.keyWords.value;
     await this.loadData(this.currentPage, { keyWords: this.keywords });
   }
@@ -127,7 +127,7 @@ export class ArticleComponent implements OnInit {
     } catch (err) {
       console.log(err)
     }
-    if (this.keywords == '全部文章') this.keywords = ''
+    if (this.keywords.indexOf('全部') >-1) this.keywords = ''
     if (this.search) this.keywords = this.keyWords.value;
     await this.loadData(this.currentPage, { keyWords: this.keywords });
   }
@@ -142,7 +142,7 @@ export class ArticleComponent implements OnInit {
     } catch (err) {
       console.log(err)
     }
-    if (this.keywords == '全部文章') this.keywords = ''
+    if (this.keywords.indexOf('全部') >-1) this.keywords = ''
     if (this.search) this.keywords = this.keyWords.value;
     await this.loadData(this.currentPage, { keyWords: this.keywords });
   }
@@ -169,7 +169,7 @@ export class ArticleComponent implements OnInit {
     } catch (err) {
       console.log(err)
     }
-    if (this.keywords == '全部文章') this.keywords = ''
+    if (this.keywords.indexOf('全部') >-1) this.keywords = ''
     if (this.search) this.keywords = this.keyWords.value;
     await this.loadData(this.currentPage, { keyWords: this.keywords });
   }
@@ -198,7 +198,7 @@ export class ArticleComponent implements OnInit {
       //搜索框置空
       this.keyWords.value = '';
       this.keywords = this.node.innerHTML;
-      if (this.keywords === '全部文章') this.keywords = '';
+      if (this.keywords.indexOf('全部') >-1) this.keywords = ''
       this.router.navigate(['./index'], { queryParams: { keyWords: this.keywords } })
       this.data = [];
       this.loadData(1, { keyWords: this.keywords })
