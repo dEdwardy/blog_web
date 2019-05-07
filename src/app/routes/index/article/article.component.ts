@@ -199,6 +199,9 @@ export class ArticleComponent implements OnInit {
       this.keyWords.value = '';
       this.keywords = this.node.innerHTML;
       if (this.keywords === '全部文章') this.keywords = '';
+      if(this.keywords.includes('<span')){
+        return;
+      }
       this.router.navigate(['./index'], { queryParams: { keyWords: this.keywords } })
       this.data = [];
       this.loadData(1, { keyWords: this.keywords })
